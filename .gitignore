@@ -1,0 +1,6 @@
+.DS_Store
+Thumbs.db
+.deploy_tools/
+assets/videos/_compressed/
+*.tmp
+*.log
