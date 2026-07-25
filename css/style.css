@@ -336,6 +336,15 @@ textarea {
   color: var(--jade-deep);
   font-size: 2rem;
   line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+strong[data-count] {
+  transition: color 200ms ease;
+}
+
+strong[data-count].counting {
+  color: var(--cinnabar);
 }
 
 .research-support-grid .insight-grid strong {

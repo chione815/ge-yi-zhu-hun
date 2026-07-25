@@ -90,6 +90,44 @@ backTop?.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
+const animateNumber = (el) => {
+  const target = parseFloat(el.dataset.count);
+  const decimals = parseInt(el.dataset.decimals || "0", 10);
+  const suffix = el.dataset.suffix || "";
+  const duration = 1400;
+  el.classList.add("counting");
+  const start = performance.now();
+  const tick = (now) => {
+    const t = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - t, 3);
+    const value = target * eased;
+    el.textContent = value.toFixed(decimals) + suffix;
+    if (t < 1) requestAnimationFrame(tick);
+    else el.classList.remove("counting");
+  };
+  requestAnimationFrame(tick);
+};
+
+const countItems = Array.from(document.querySelectorAll("[data-count]"));
+if (countItems.length && "IntersectionObserver" in window) {
+  const countObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateNumber(entry.target);
+          countObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+  countItems.forEach((item) => countObserver.observe(item));
+} else {
+  countItems.forEach((item) => {
+    item.textContent = item.dataset.count + (item.dataset.suffix || "");
+  });
+}
+
 const heroBanner = document.querySelector(".hero-banner img");
 if (heroBanner) {
   let ticking = false;
