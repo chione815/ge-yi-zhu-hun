@@ -7,6 +7,14 @@ const videos = Array.from(document.querySelectorAll("video"));
 const revealItems = Array.from(document.querySelectorAll(".reveal"));
 const scrollHint = document.querySelector(".scroll-hint");
 
+// 兜底：无论后面 JS 出什么错，先把所有 reveal 元素显示出来
+setTimeout(function () {
+  var all = document.querySelectorAll(".reveal");
+  for (var i = 0; i < all.length; i++) {
+    all[i].classList.add("in-view");
+  }
+}, 1500);
+
 if (navToggle && mainNav) {
   navToggle.addEventListener("click", () => {
     const isOpen = mainNav.classList.toggle("open");
