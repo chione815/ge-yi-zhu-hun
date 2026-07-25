@@ -174,6 +174,16 @@ const canCustomCursor =
   !window.matchMedia("(pointer: coarse)").matches &&
   !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+console.log("[墨笔光标] 初始化检查:", {
+  cursorEl: !!cursor,
+  sealEl: !!sealContainer,
+  matchMedia: !!window.matchMedia,
+  hoverNone: window.matchMedia("(hover: none)").matches,
+  pointerCoarse: window.matchMedia("(pointer: coarse)").matches,
+  reducedMotion: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  enabled: canCustomCursor,
+});
+
 if (canCustomCursor) {
   let cursorX = -100;
   let cursorY = -100;
