@@ -1027,13 +1027,13 @@ strong[data-count].counting {
 /* ===== 自定义毛笔光标（CSS-only 兜底方案）===== */
 html,
 body {
-  cursor: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20d%3D%22M14%2014%20L30%2030%22%20stroke%3D%22%23181511%22%20stroke-width%3D%222.6%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M16%2014%20Q9%206%204%206%20Q4%209%207%2014%20Q11%2018%2016%2014%20Z%22%20fill%3D%22%23181511%22%2F%3E%3Cpath%20d%3D%22M5%207%20Q5%209%206%2011%20Q7%2012%208%2011%20Q8%209%207%207%20Q6%206%205%207%20Z%22%20fill%3D%22%23b23a2c%22%2F%3E%3C%2Fsvg%3E") 3 3,
+  cursor: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%229%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%23181511%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E") 16 16,
     auto;
 }
 
 a,
 button {
-  cursor: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20d%3D%22M14%2014%20L30%2030%22%20stroke%3D%22%23b23a2c%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M16%2014%20Q9%206%204%206%20Q4%209%207%2014%20Q11%2018%2016%2014%20Z%22%20fill%3D%22%23b23a2c%22%2F%3E%3Cpath%20d%3D%22M5%207%20Q5%209%206%2011%20Q7%2012%208%2011%20Q8%209%207%207%20Q6%206%205%207%20Z%22%20fill%3D%22%23d8a449%22%2F%3E%3C%2Fsvg%3E") 3 3,
+  cursor: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%2211%22%20fill%3D%22%23b23a2c%22%20stroke%3D%22%23181511%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E") 16 16,
     pointer;
 }
 
