@@ -178,21 +178,54 @@ var moveCount = 0;
 var lastMoveTime = "";
 
 if (cursor && sealContainer) {
-  window.addEventListener("mousemove", function (e) {
+  var handleMove = function (e) {
     moveCount++;
-    cursor.style.transform =
-      "translate3d(" + e.clientX + "px," + e.clientY + "px,0)";
-    var now = new Date();
-    var t =
-      now.getHours() +
-      ":" +
-      now.getMinutes() +
-      ":" +
-      now.getSeconds() +
-      "." +
-      now.getMilliseconds();
+    var x = e.clientX;
+    var y = e.clientY;
+    cursor.style.transform = "translate3d(" + x + "px," + y + "px,0)";
     debugPanel.textContent =
-      "鼠标: " + e.clientX + "," + e.clientY + " | 触发 " + moveCount + " 次 | " + t;
+      "事件类型: " +
+      e.type +
+      " | 坐标: " +
+      x +
+      "," +
+      y +
+      " | 触发 " +
+      moveCount +
+      " 次";
+  };
+  window.addEventListener("mousemove", handleMove, { passive: true });
+  window.addEventListener("pointermove", handleMove, { passive: true });
+  window.addEventListener("touchmove", handleMove, { passive: true });
+
+  var handleDown = function (e) {
+    if (e.button !== undefined && e.button !== 0) return;
+    var x = e.clientX;
+    var y = e.clientY;
+    cursor.classList.add("clicking");
+    var stamp = document.createElement("div");
+    stamp.className = "seal-stamp";
+    stamp.textContent = "印";
+    stamp.style.left = x + "px";
+    stamp.style.top = y + "px";
+    sealContainer.appendChild(stamp);
+    setTimeout(function () {
+      stamp.remove();
+    }, 1300);
+  };
+  window.addEventListener("mousedown", handleDown);
+  window.addEventListener("pointerdown", handleDown);
+  window.addEventListener("touchstart", function (e) {
+    if (e.touches && e.touches[0]) {
+      handleDown({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY, button: 0 });
+    }
+  });
+
+  window.addEventListener("mouseup", function () {
+    cursor.classList.remove("clicking");
+  });
+  window.addEventListener("pointerup", function () {
+    cursor.classList.remove("clicking");
   });
 
   window.addEventListener("mousedown", function (e) {
