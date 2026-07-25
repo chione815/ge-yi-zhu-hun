@@ -89,3 +89,23 @@ updateBackTop();
 backTop?.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
+
+const heroBanner = document.querySelector(".hero-banner img");
+if (heroBanner) {
+  let ticking = false;
+  const updateParallax = () => {
+    const offset = Math.min(window.scrollY * 0.25, 80);
+    heroBanner.style.transform = `translateY(${offset}px) scale(${1 + offset / 2000})`;
+    ticking = false;
+  };
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    },
+    { passive: true }
+  );
+}
