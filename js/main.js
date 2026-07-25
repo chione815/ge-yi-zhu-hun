@@ -189,10 +189,6 @@ if (canCustomCursor) {
     cursorY = event.clientY;
     if (!cursorVisible) {
       cursor.style.opacity = "1";
-      cursor.style.background = "red";
-      cursor.style.width = "20px";
-      cursor.style.height = "20px";
-      cursor.style.margin = "-10px 0 0 -10px";
       cursorVisible = true;
     }
     updateCursor();
