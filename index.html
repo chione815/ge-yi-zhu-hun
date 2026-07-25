@@ -8,7 +8,19 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23b23a2c'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='serif' font-size='18' font-weight='900' fill='%23fbfaf5'%3E歌%3C/text%3E%3C/svg%3E">
 </head>
-<body>
+<body class="is-loading">
+
+  <div class="ink-loader" aria-hidden="true">
+    <div class="ink-stage">
+      <div class="ink-core"></div>
+      <h1 class="ink-stage-title">歌以铸魂</h1>
+      <div class="ink-progress">
+        <div class="ink-progress-number" id="ink-progress-number">1%</div>
+        <div class="ink-progress-bar"></div>
+      </div>
+    </div>
+  </div>
+
   <header class="site-header" id="top">
     <a class="brand" href="#home" aria-label="返回首页">
       <img src="assets/images/logo.png" alt="歌以铸魂项目标识">

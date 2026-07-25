@@ -134,6 +134,45 @@ scrollHint?.addEventListener("click", () => {
   firstSection?.scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
+// 模块 1：水墨晕染开屏进度控制
+(function initInkLoader() {
+  const numEl = document.getElementById("ink-progress-number");
+  if (!numEl) return;
+
+  let progress = 1;
+  const startTime = performance.now();
+  const duration = 1400;
+  const startDelay = 800;
+
+  function tick(now) {
+    const elapsed = now - startTime - startDelay;
+    if (elapsed < 0) {
+      requestAnimationFrame(tick);
+      return;
+    }
+    const t = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - t, 2.4);
+    progress = Math.round(1 + eased * 99);
+    numEl.textContent = progress + "%";
+    if (t < 1) {
+      requestAnimationFrame(tick);
+    } else {
+      numEl.textContent = "100%";
+    }
+  }
+  requestAnimationFrame(tick);
+
+  // 2.7 秒后结束 loader
+  setTimeout(function () {
+    document.body.classList.remove("is-loading");
+  }, 2700);
+
+  // 兜底：4 秒后无论如何都强制结束
+  setTimeout(function () {
+    document.body.classList.remove("is-loading");
+  }, 4000);
+})();
+
 const animateNumber = (el) => {
   const target = parseFloat(el.dataset.count);
   const decimals = parseInt(el.dataset.decimals || "0", 10);

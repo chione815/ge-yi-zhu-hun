@@ -1024,4 +1024,196 @@ strong[data-count].counting {
   }
 }
 
-/* ===== 自定义光标与印章戳印已移除，恢复系统默认 ===== */
+/* ===== 模块 1：水墨晕染开屏（载入动画） ===== */
+:root {
+  --paper-aged: #f5efe1;
+  --paper-vellum: #ede4cd;
+  --ink-deep: #0a0805;
+  --ink-shadow: rgba(10, 8, 5, 0.12);
+  --seal-red: #a83228;
+  --gold-thread: #b8893a;
+}
+
+.ink-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(ellipse at center, var(--paper-vellum) 0%, var(--paper-aged) 70%),
+    var(--paper-aged);
+  overflow: hidden;
+  transition: opacity 600ms ease;
+}
+
+body.is-loading main,
+body.is-loading .site-header,
+body.is-loading .site-footer {
+  visibility: hidden;
+}
+
+body:not(.is-loading) .ink-loader {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ink-loader::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 25% 30%, rgba(10, 8, 5, 0.04) 0%, transparent 30%),
+    radial-gradient(circle at 75% 70%, rgba(168, 50, 40, 0.03) 0%, transparent 30%);
+  pointer-events: none;
+}
+
+.ink-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.ink-core {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(10, 8, 5, 0.95) 0%,
+    rgba(10, 8, 5, 0.6) 35%,
+    rgba(10, 8, 5, 0.2) 65%,
+    rgba(10, 8, 5, 0) 100%
+  );
+  filter: blur(40px);
+  opacity: 0;
+  animation:
+    inkBloom 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    inkAbsorb 0.7s cubic-bezier(0.7, 0, 0.84, 0) 1.7s forwards;
+}
+
+.ink-stage-title {
+  position: relative;
+  font-family: KaiTi, STKaiti, "FangSong", "Microsoft YaHei", serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--paper-aged);
+  letter-spacing: 0.5em;
+  padding-left: 0.5em;
+  text-shadow: 0 0 24px rgba(10, 8, 5, 0.6);
+  opacity: 0;
+  transform: scale(0.92);
+  z-index: 2;
+  animation:
+    titleFadeIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards,
+    titleExpand 1s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards,
+    titleFadeOut 0.5s ease 1.9s forwards;
+}
+
+.ink-progress {
+  position: absolute;
+  bottom: 14%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  z-index: 3;
+}
+
+.ink-progress-number {
+  font-family: "Source Han Serif SC", "Noto Serif SC", serif;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--ink-deep);
+  letter-spacing: 0.12em;
+  font-variant-numeric: tabular-nums;
+  opacity: 0;
+  animation: titleFadeIn 0.6s ease 0.8s forwards, titleFadeOut 0.5s ease 2s forwards;
+}
+
+.ink-progress-bar {
+  width: 220px;
+  height: 2px;
+  background: rgba(10, 8, 5, 0.12);
+  overflow: hidden;
+  position: relative;
+  opacity: 0;
+  animation: titleFadeIn 0.6s ease 0.8s forwards;
+}
+
+.ink-progress-bar::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0;
+  background: linear-gradient(90deg, var(--ink-deep), var(--seal-red));
+  animation: progressFill 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.8s forwards;
+}
+
+@keyframes inkBloom {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    filter: blur(60px);
+  }
+  40% {
+    opacity: 0.95;
+    filter: blur(30px);
+  }
+  100% {
+    width: 280px;
+    height: 280px;
+    margin: -140px 0 0 -140px;
+    opacity: 0.9;
+    filter: blur(35px);
+  }
+}
+
+@keyframes inkAbsorb {
+  0% {
+    width: 280px;
+    height: 280px;
+    margin: -140px 0 0 -140px;
+    opacity: 0.9;
+    filter: blur(35px);
+  }
+  100% {
+    width: 0;
+    height: 0;
+    margin: 0;
+    opacity: 0;
+    filter: blur(80px);
+  }
+}
+
+@keyframes titleFadeIn {
+  to { opacity: 1; }
+}
+
+@keyframes titleFadeOut {
+  to { opacity: 0; }
+}
+
+@keyframes titleExpand {
+  to { transform: scale(1); }
+}
+
+@keyframes progressFill {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-core,
+  .ink-stage-title,
+  .ink-progress-number,
+  .ink-progress-bar::before {
+    animation-duration: 1ms !important;
+  }
+}
