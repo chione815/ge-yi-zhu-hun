@@ -557,9 +557,20 @@ textarea {
   content: "";
   position: absolute;
   inset: 0 auto 0 0;
-  width: calc(var(--value) * 1%);
+  width: 0;
   background: linear-gradient(90deg, var(--jade), var(--gold));
+  transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+.result-card.in-view .bar-row i::before {
+  width: calc(var(--value) * 1%);
+}
+
+.bar-row:nth-child(1) i::before { transition-delay: 0.2s; }
+.bar-row:nth-child(2) i::before { transition-delay: 0.35s; }
+.bar-row:nth-child(3) i::before { transition-delay: 0.5s; }
+.bar-row:nth-child(4) i::before { transition-delay: 0.65s; }
+.bar-row:nth-child(5) i::before { transition-delay: 0.8s; }
 
 .lesson-grid {
   display: grid;
