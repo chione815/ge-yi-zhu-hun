@@ -826,10 +826,15 @@ strong[data-count].counting {
 }
 
 .reveal {
-  opacity: 0;
-  transform: translateY(28px) rotate(-0.4deg);
+  opacity: 1;
+  transform: translateY(0) rotate(0);
   transition: opacity 620ms cubic-bezier(0.22, 1, 0.36, 1),
               transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.is-preparing {
+  opacity: 0;
+  transform: translateY(28px) rotate(-0.4deg);
 }
 
 .reveal.in-view {

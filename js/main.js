@@ -7,13 +7,19 @@ const videos = Array.from(document.querySelectorAll("video"));
 const revealItems = Array.from(document.querySelectorAll(".reveal"));
 const scrollHint = document.querySelector(".scroll-hint");
 
-// 兜底：无论后面 JS 出什么错，先把所有 reveal 元素显示出来
+// 默认就显示 .reveal；只有 JS 准备好时再加 .is-preparing 进入隐藏态
+// 这样即使 JS 报错，页面也不会空白
+for (var ri = 0; ri < revealItems.length; ri++) {
+  revealItems[ri].classList.add("is-preparing");
+}
+
 setTimeout(function () {
   var all = document.querySelectorAll(".reveal");
   for (var i = 0; i < all.length; i++) {
     all[i].classList.add("in-view");
+    all[i].classList.remove("is-preparing");
   }
-}, 1500);
+}, 2500);
 
 if (navToggle && mainNav) {
   navToggle.addEventListener("click", () => {
