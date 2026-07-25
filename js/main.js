@@ -5,6 +5,7 @@ const sections = Array.from(document.querySelectorAll("[data-section]"));
 const backTop = document.querySelector(".back-top");
 const videos = Array.from(document.querySelectorAll("video"));
 const revealItems = Array.from(document.querySelectorAll(".reveal"));
+const scrollHint = document.querySelector(".scroll-hint");
 
 if (navToggle && mainNav) {
   navToggle.addEventListener("click", () => {
@@ -104,8 +105,13 @@ videos.forEach((video) => {
 });
 
 const updateBackTop = () => {
-  if (!backTop) return;
-  backTop.classList.toggle("visible", window.scrollY > 520);
+  const y = window.scrollY;
+  if (backTop) {
+    backTop.classList.toggle("visible", y > 520);
+  }
+  if (scrollHint) {
+    scrollHint.classList.toggle("visible", y < 320);
+  }
 };
 
 window.addEventListener("scroll", updateBackTop, { passive: true });
@@ -113,6 +119,11 @@ updateBackTop();
 
 backTop?.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+scrollHint?.addEventListener("click", () => {
+  const firstSection = document.querySelector("#research");
+  firstSection?.scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
 const animateNumber = (el) => {

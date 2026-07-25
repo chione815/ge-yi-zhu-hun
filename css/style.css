@@ -771,6 +771,47 @@ strong[data-count].counting {
   transform: translateY(0);
 }
 
+.scroll-hint {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 35;
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  border: 2px solid var(--line);
+  border-radius: 50%;
+  background: rgba(251, 250, 245, 0.94);
+  color: var(--jade-deep);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  text-align: center;
+  line-height: 1.1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 240ms ease;
+}
+
+.scroll-hint.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.scroll-hint-arrow {
+  display: block;
+  margin-top: 2px;
+  font-size: 1.1rem;
+  animation: scrollHintBounce 1.6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+@keyframes scrollHintBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(4px); opacity: 1; }
+}
+
 .site-footer {
   width: min(var(--max), calc(100% - 36px));
   margin: 54px auto 30px;
