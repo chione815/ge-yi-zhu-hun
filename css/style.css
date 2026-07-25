@@ -1019,7 +1019,7 @@ strong[data-count].counting {
   }
 }
 
-/* ===== 自定义毛笔墨点光标 + 红色印章戳印 ===== */
+/* ===== 自定义毛笔光标（CSS-only 兜底方案） ===== */
 html,
 body,
 a,
@@ -1028,41 +1028,21 @@ button,
 .single-link,
 .scroll-hint,
 .back-top {
-  cursor: none;
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M14 14 L30 30' stroke='%23181511' stroke-width='3' stroke-linecap='round'/><path d='M12 14 L6 6 Q4 4 6 8 L14 16 Q16 18 14 14 Z' fill='%23181511'/><circle cx='5' cy='7' r='1.6' fill='%23b23a2c'/></svg>") 4 4,
+    auto;
+}
+
+a:hover,
+button:hover,
+.link-row a:hover,
+.single-link:hover,
+.patent-gallery a:hover {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M14 14 L30 30' stroke='%23b23a2c' stroke-width='4' stroke-linecap='round'/><path d='M12 14 L6 6 Q4 4 6 8 L14 16 Q16 18 14 14 Z' fill='%23b23a2c'/><circle cx='5' cy='7' r='2' fill='%23d8a449'/></svg>") 4 4,
+    pointer;
 }
 
 .custom-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 28px;
-  height: 28px;
-  margin: -4px 0 0 -2px;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate3d(-100px, -100px, 0);
-  transition: transform 60ms linear, width 200ms ease, height 200ms ease,
-              margin 200ms ease;
-  will-change: transform;
-  filter: drop-shadow(0 2px 3px rgba(24, 21, 17, 0.35));
-}
-
-.custom-cursor svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.custom-cursor.hovering {
-  width: 38px;
-  height: 38px;
-  margin: -6px 0 0 -3px;
-}
-
-.custom-cursor.clicking {
-  width: 22px;
-  height: 22px;
-  margin: -2px 0 0 0;
+  display: none;
 }
 
 .seal-container {

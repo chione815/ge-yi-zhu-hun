@@ -167,42 +167,18 @@ if (countItems.length && "IntersectionObserver" in window) {
 const cursor = document.querySelector(".custom-cursor");
 const sealContainer = document.querySelector(".seal-container");
 
-// 调试面板：右上角实时显示鼠标位置和事件触发情况
+// 调试面板：右上角实时显示鼠标位置和事件触发情况（仅调试用，正式版会移除）
 var debugPanel = document.createElement("div");
 debugPanel.style.cssText =
   "position:fixed;top:10px;right:10px;background:#000;color:#0f0;font-family:monospace;font-size:12px;padding:6px 10px;z-index:100000;border-radius:4px;line-height:1.5;";
-debugPanel.textContent = "等待鼠标移动...";
+debugPanel.textContent = "调试: 等待首次点击...";
 document.body.appendChild(debugPanel);
 
-var moveCount = 0;
-var lastMoveTime = "";
-
 if (cursor && sealContainer) {
-  var handleMove = function (e) {
-    moveCount++;
-    var x = e.clientX;
-    var y = e.clientY;
-    cursor.style.transform = "translate3d(" + x + "px," + y + "px,0)";
-    debugPanel.textContent =
-      "事件类型: " +
-      e.type +
-      " | 坐标: " +
-      x +
-      "," +
-      y +
-      " | 触发 " +
-      moveCount +
-      " 次";
-  };
-  window.addEventListener("mousemove", handleMove, { passive: true });
-  window.addEventListener("pointermove", handleMove, { passive: true });
-  window.addEventListener("touchmove", handleMove, { passive: true });
-
   var handleDown = function (e) {
     if (e.button !== undefined && e.button !== 0) return;
     var x = e.clientX;
     var y = e.clientY;
-    cursor.classList.add("clicking");
     var stamp = document.createElement("div");
     stamp.className = "seal-stamp";
     stamp.textContent = "印";
@@ -212,21 +188,11 @@ if (cursor && sealContainer) {
     setTimeout(function () {
       stamp.remove();
     }, 1300);
+    debugPanel.textContent = "点击: " + x + "," + y + " | 类型: " + e.type;
   };
   window.addEventListener("mousedown", handleDown);
   window.addEventListener("pointerdown", handleDown);
-  window.addEventListener("touchstart", function (e) {
-    if (e.touches && e.touches[0]) {
-      handleDown({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY, button: 0 });
-    }
-  });
-
-  window.addEventListener("mouseup", function () {
-    cursor.classList.remove("clicking");
-  });
-  window.addEventListener("pointerup", function () {
-    cursor.classList.remove("clicking");
-  });
+}
 
   window.addEventListener("mousedown", function (e) {
     if (e.button !== 0) return;
