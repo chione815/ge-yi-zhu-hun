@@ -167,10 +167,32 @@ if (countItems.length && "IntersectionObserver" in window) {
 const cursor = document.querySelector(".custom-cursor");
 const sealContainer = document.querySelector(".seal-container");
 
+// 调试面板：右上角实时显示鼠标位置和事件触发情况
+var debugPanel = document.createElement("div");
+debugPanel.style.cssText =
+  "position:fixed;top:10px;right:10px;background:#000;color:#0f0;font-family:monospace;font-size:12px;padding:6px 10px;z-index:100000;border-radius:4px;line-height:1.5;";
+debugPanel.textContent = "等待鼠标移动...";
+document.body.appendChild(debugPanel);
+
+var moveCount = 0;
+var lastMoveTime = "";
+
 if (cursor && sealContainer) {
   window.addEventListener("mousemove", function (e) {
+    moveCount++;
     cursor.style.transform =
       "translate3d(" + e.clientX + "px," + e.clientY + "px,0)";
+    var now = new Date();
+    var t =
+      now.getHours() +
+      ":" +
+      now.getMinutes() +
+      ":" +
+      now.getSeconds() +
+      "." +
+      now.getMilliseconds();
+    debugPanel.textContent =
+      "鼠标: " + e.clientX + "," + e.clientY + " | 触发 " + moveCount + " 次 | " + t;
   });
 
   window.addEventListener("mousedown", function (e) {
