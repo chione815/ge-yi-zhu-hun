@@ -166,23 +166,14 @@ if (countItems.length && "IntersectionObserver" in window) {
 
 const cursor = document.querySelector(".custom-cursor");
 const sealContainer = document.querySelector(".seal-container");
-const canCustomCursor =
-  cursor &&
-  sealContainer &&
+const isLikelyDesktop =
+  typeof window !== "undefined" &&
   window.matchMedia &&
-  !window.matchMedia("(hover: none)").matches &&
-  !window.matchMedia("(pointer: coarse)").matches &&
-  !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-console.log("[墨笔光标] 初始化检查:", {
-  cursorEl: !!cursor,
-  sealEl: !!sealContainer,
-  matchMedia: !!window.matchMedia,
-  hoverNone: window.matchMedia("(hover: none)").matches,
-  pointerCoarse: window.matchMedia("(pointer: coarse)").matches,
-  reducedMotion: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-  enabled: canCustomCursor,
-});
+  !(
+    window.matchMedia("(hover: none)").matches &&
+    window.matchMedia("(pointer: coarse)").matches
+  );
+const canCustomCursor = cursor && sealContainer && isLikelyDesktop;
 
 if (canCustomCursor) {
   let cursorX = -100;

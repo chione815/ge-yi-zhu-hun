@@ -1116,14 +1116,12 @@ button,
   100% { transform: scale(1.18) rotate(0); opacity: 0; }
 }
 
-@media (hover: none), (pointer: coarse) {
+@media (hover: none) and (pointer: coarse) {
   html, body, a, button, .link-row a, .single-link,
   .scroll-hint, .back-top { cursor: auto; }
   .custom-cursor, .seal-container { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html, body, a, button, .link-row a, .single-link,
-  .scroll-hint, .back-top { cursor: auto; }
-  .custom-cursor, .seal-container { display: none; }
+  .seal-stamp { animation-duration: 1ms; }
 }
