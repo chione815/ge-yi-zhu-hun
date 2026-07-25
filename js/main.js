@@ -164,6 +164,89 @@ if (countItems.length && "IntersectionObserver" in window) {
   });
 }
 
+const cursor = document.querySelector(".custom-cursor");
+const sealContainer = document.querySelector(".seal-container");
+const canCustomCursor =
+  cursor &&
+  sealContainer &&
+  window.matchMedia &&
+  !window.matchMedia("(hover: none)").matches &&
+  !window.matchMedia("(pointer: coarse)").matches &&
+  !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+if (canCustomCursor) {
+  let cursorX = -100;
+  let cursorY = -100;
+  let cursorVisible = false;
+
+  const updateCursor = () => {
+    cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0)`;
+  };
+
+  document.addEventListener("mousemove", (event) => {
+    cursorX = event.clientX;
+    cursorY = event.clientY;
+    if (!cursorVisible) {
+      cursor.style.opacity = "1";
+      cursorVisible = true;
+    }
+    updateCursor();
+  });
+
+  document.addEventListener("mouseleave", () => {
+    cursor.style.opacity = "0";
+    cursorVisible = false;
+  });
+
+  document.addEventListener("mouseenter", () => {
+    if (!cursorVisible) {
+      cursor.style.opacity = "1";
+      cursorVisible = true;
+    }
+  });
+
+  const interactiveSelector =
+    'a, button, .link-row a, .single-link, .scroll-hint, .back-top, .nav-toggle, .patent-gallery a';
+
+  document.addEventListener(
+    "mouseover",
+    (event) => {
+      if (event.target.closest(interactiveSelector)) {
+        cursor.classList.add("hovering");
+      }
+    },
+    { passive: true }
+  );
+
+  document.addEventListener(
+    "mouseout",
+    (event) => {
+      if (event.target.closest(interactiveSelector)) {
+        cursor.classList.remove("hovering");
+      }
+    },
+    { passive: true }
+  );
+
+  document.addEventListener("mousedown", (event) => {
+    if (event.button !== 0) return;
+    cursor.classList.add("clicking");
+    const stamp = document.createElement("div");
+    stamp.className = "seal-stamp";
+    stamp.textContent = "印";
+    stamp.style.left = `${event.clientX}px`;
+    stamp.style.top = `${event.clientY}px`;
+    sealContainer.appendChild(stamp);
+    setTimeout(() => {
+      stamp.remove();
+    }, 1200);
+  });
+
+  document.addEventListener("mouseup", () => {
+    cursor.classList.remove("clicking");
+  });
+}
+
 const heroBanner = document.querySelector(".hero-banner img");
 if (heroBanner) {
   let ticking = false;

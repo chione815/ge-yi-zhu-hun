@@ -1018,3 +1018,112 @@ strong[data-count].counting {
     padding: 20px;
   }
 }
+
+/* ===== 自定义毛笔墨点光标 + 红色印章戳印 ===== */
+html,
+body,
+a,
+button,
+.link-row a,
+.single-link,
+.scroll-hint,
+.back-top {
+  cursor: none;
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border: 2px solid var(--jade-deep);
+  border-radius: 50%;
+  background: rgba(15, 106, 88, 0.18);
+  box-shadow: 0 0 0 2px rgba(251, 250, 245, 0.65);
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate3d(-100px, -100px, 0);
+  transition: transform 60ms linear, width 200ms ease, height 200ms ease,
+              margin 200ms ease, background 200ms ease, border-color 200ms ease,
+              box-shadow 200ms ease;
+  will-change: transform;
+}
+
+.custom-cursor.hovering {
+  width: 24px;
+  height: 24px;
+  margin: -12px 0 0 -12px;
+  border-color: var(--cinnabar);
+  background: rgba(178, 58, 44, 0.22);
+  box-shadow: 0 0 0 3px rgba(251, 250, 245, 0.6),
+              0 0 18px rgba(178, 58, 44, 0.35);
+}
+
+.custom-cursor.clicking {
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  background: var(--cinnabar);
+}
+
+.seal-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.seal-stamp {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: -32px 0 0 -32px;
+  border: 3px solid var(--cinnabar);
+  border-radius: 6px;
+  background: var(--cinnabar);
+  color: var(--paper);
+  font-family: KaiTi, STKaiti, "FangSong", "Microsoft YaHei", serif;
+  font-size: 2.4rem;
+  font-weight: 900;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  box-shadow: 0 0 0 2px var(--paper) inset,
+              0 6px 18px rgba(178, 58, 44, 0.35);
+  transform: scale(2.4) rotate(-22deg);
+  opacity: 0;
+  animation: sealStamp 1100ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  pointer-events: none;
+}
+
+.seal-stamp::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1.5px solid rgba(251, 250, 245, 0.7);
+  border-radius: 3px;
+}
+
+@keyframes sealStamp {
+  0% { transform: scale(2.4) rotate(-22deg); opacity: 0; }
+  18% { transform: scale(1) rotate(-6deg); opacity: 1; }
+  35% { transform: scale(1.02) rotate(-3deg); opacity: 1; }
+  70% { transform: scale(1.05) rotate(-1deg); opacity: 1; }
+  100% { transform: scale(1.18) rotate(0); opacity: 0; }
+}
+
+@media (hover: none), (pointer: coarse) {
+  html, body, a, button, .link-row a, .single-link,
+  .scroll-hint, .back-top { cursor: auto; }
+  .custom-cursor, .seal-container { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html, body, a, button, .link-row a, .single-link,
+  .scroll-hint, .back-top { cursor: auto; }
+  .custom-cursor, .seal-container { display: none; }
+}
