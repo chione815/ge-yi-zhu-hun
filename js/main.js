@@ -162,15 +162,15 @@ scrollHint?.addEventListener("click", () => {
   }
   requestAnimationFrame(tick);
 
-  // 2.7 秒后结束 loader
+  // 4.5 秒后结束 loader
   setTimeout(function () {
     document.body.classList.remove("is-loading");
-  }, 2700);
+  }, 4500);
 
-  // 兜底：4 秒后无论如何都强制结束
+  // 兜底：6 秒后无论如何都强制结束
   setTimeout(function () {
     document.body.classList.remove("is-loading");
-  }, 4000);
+  }, 6000);
 })();
 
 const animateNumber = (el) => {
