@@ -68,6 +68,31 @@ if ("IntersectionObserver" in window) {
   revealItems.forEach((item) => item.classList.add("in-view"));
 }
 
+const sectionTitles = Array.from(document.querySelectorAll(".section-title"));
+const brand = document.querySelector(".brand");
+const memberNames = Array.from(document.querySelectorAll(".member-name"));
+
+if ("IntersectionObserver" in window) {
+  const titleObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          titleObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { rootMargin: "0px 0px -10% 0px", threshold: 0.2 }
+  );
+  sectionTitles.forEach((title) => titleObserver.observe(title));
+  if (brand) titleObserver.observe(brand);
+  memberNames.forEach((name) => titleObserver.observe(name));
+} else {
+  sectionTitles.forEach((title) => title.classList.add("in-view"));
+  if (brand) brand.classList.add("in-view");
+  memberNames.forEach((name) => name.classList.add("in-view"));
+}
+
 videos.forEach((video) => {
   video.addEventListener("play", () => {
     videos.forEach((otherVideo) => {

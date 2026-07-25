@@ -394,6 +394,59 @@ strong[data-count].counting {
   font-family: KaiTi, STKaiti, "FangSong", serif;
   font-size: 3.2rem;
   line-height: 1.16;
+  display: inline-block;
+  position: relative;
+  background: linear-gradient(90deg, var(--ink) 0%, var(--ink) 50%, transparent 50%, transparent 100%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  transition: background-position 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.section-title h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--cinnabar), var(--gold));
+  border-radius: 2px;
+  transition: width 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.4s;
+}
+
+.section-title.in-view h2 {
+  background-position: 0% 0;
+}
+
+.section-title.in-view h2::after {
+  width: 100%;
+}
+
+.section-title h2 {
+  filter: drop-shadow(0 1px 0 rgba(24, 21, 17, 0.12));
+}
+
+.brand span,
+.section-title h2,
+.member-name {
+  display: inline-block;
+  background: linear-gradient(90deg, var(--ink) 0%, var(--ink) 50%, transparent 50%, transparent 100%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  transition: background-position 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.brand.in-view span,
+.member-name.in-view {
+  background-position: 0% 0;
 }
 
 .section-title p:last-child {
