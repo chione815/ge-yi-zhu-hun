@@ -1019,30 +1019,25 @@ strong[data-count].counting {
   }
 }
 
-/* ===== 自定义毛笔光标（CSS-only 兜底方案） ===== */
+/* ===== 自定义毛笔光标（CSS-only 兜底方案）===== */
 html,
-body,
-a,
-button,
-.link-row a,
-.single-link,
-.scroll-hint,
-.back-top {
+body {
   cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M14 14 L30 30' stroke='%23181511' stroke-width='3' stroke-linecap='round'/><path d='M12 14 L6 6 Q4 4 6 8 L14 16 Q16 18 14 14 Z' fill='%23181511'/><circle cx='5' cy='7' r='1.6' fill='%23b23a2c'/></svg>") 4 4,
     auto;
 }
 
-a:hover,
-button:hover,
-.link-row a:hover,
-.single-link:hover,
-.patent-gallery a:hover {
+a,
+button {
   cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M14 14 L30 30' stroke='%23b23a2c' stroke-width='4' stroke-linecap='round'/><path d='M12 14 L6 6 Q4 4 6 8 L14 16 Q16 18 14 14 Z' fill='%23b23a2c'/><circle cx='5' cy='7' r='2' fill='%23d8a449'/></svg>") 4 4,
     pointer;
 }
 
 .custom-cursor {
   display: none;
+}
+
+.seal-container {
+  display: none !important;
 }
 
 .seal-container {
