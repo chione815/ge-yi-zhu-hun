@@ -7,19 +7,13 @@ const videos = Array.from(document.querySelectorAll("video"));
 const revealItems = Array.from(document.querySelectorAll(".reveal"));
 const scrollHint = document.querySelector(".scroll-hint");
 
-// 默认就显示 .reveal；只有 JS 准备好时再加 .is-preparing 进入隐藏态
-// 这样即使 JS 报错，页面也不会空白
-for (var ri = 0; ri < revealItems.length; ri++) {
-  revealItems[ri].classList.add("is-preparing");
-}
-
+// 兜底：无论 JS 后续是否出错，2 秒后强制显示所有 reveal 元素
 setTimeout(function () {
   var all = document.querySelectorAll(".reveal");
   for (var i = 0; i < all.length; i++) {
     all[i].classList.add("in-view");
-    all[i].classList.remove("is-preparing");
   }
-}, 2500);
+}, 2000);
 
 if (navToggle && mainNav) {
   navToggle.addEventListener("click", () => {
@@ -176,86 +170,6 @@ if (countItems.length && "IntersectionObserver" in window) {
   countItems.forEach((item) => {
     item.textContent = item.dataset.count + (item.dataset.suffix || "");
   });
-}
-
-const cursor = document.querySelector(".custom-cursor");
-const sealContainer = document.querySelector(".seal-container");
-
-// 调试面板：右上角实时显示鼠标位置和事件触发情况（仅调试用，正式版会移除）
-var debugPanel = document.createElement("div");
-debugPanel.style.cssText =
-  "position:fixed;top:10px;right:10px;background:#000;color:#0f0;font-family:monospace;font-size:12px;padding:6px 10px;z-index:100000;border-radius:4px;line-height:1.5;";
-debugPanel.textContent = "调试: 等待首次点击...";
-document.body.appendChild(debugPanel);
-
-if (cursor && sealContainer) {
-  var handleDown = function (e) {
-    if (e.button !== undefined && e.button !== 0) return;
-    var x = e.clientX;
-    var y = e.clientY;
-    var stamp = document.createElement("div");
-    stamp.className = "seal-stamp";
-    stamp.textContent = "印";
-    stamp.style.left = x + "px";
-    stamp.style.top = y + "px";
-    sealContainer.appendChild(stamp);
-    setTimeout(function () {
-      stamp.remove();
-    }, 1300);
-    debugPanel.textContent = "点击: " + x + "," + y + " | 类型: " + e.type;
-  };
-  window.addEventListener("mousedown", handleDown);
-  window.addEventListener("pointerdown", handleDown);
-}
-
-  window.addEventListener("mousedown", function (e) {
-    if (e.button !== 0) return;
-    cursor.classList.add("clicking");
-    var stamp = document.createElement("div");
-    stamp.className = "seal-stamp";
-    stamp.textContent = "印";
-    stamp.style.left = e.clientX + "px";
-    stamp.style.top = e.clientY + "px";
-    sealContainer.appendChild(stamp);
-    setTimeout(function () {
-      stamp.remove();
-    }, 1300);
-  });
-
-  window.addEventListener("mouseup", function () {
-    cursor.classList.remove("clicking");
-  });
-
-  var hoverTargets =
-    'a,button,.link-row a,.single-link,.scroll-hint,.back-top,.nav-toggle,.patent-gallery a';
-  window.addEventListener(
-    "mouseover",
-    function (e) {
-      var t = e.target;
-      while (t && t !== document) {
-        if (t.matches && t.matches(hoverTargets)) {
-          cursor.classList.add("hovering");
-          return;
-        }
-        t = t.parentNode;
-      }
-    },
-    true
-  );
-  window.addEventListener(
-    "mouseout",
-    function (e) {
-      var t = e.target;
-      while (t && t !== document) {
-        if (t.matches && t.matches(hoverTargets)) {
-          cursor.classList.remove("hovering");
-          return;
-        }
-        t = t.parentNode;
-      }
-    },
-    true
-  );
 }
 
 const heroBanner = document.querySelector(".hero-banner img");
