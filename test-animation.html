@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>动画测试</title>
+<style>
+  body { margin: 0; padding: 40px; background: #f4ecd8; font-family: serif; }
+  h2 { margin: 30px 0 15px; }
+
+  /* 测试1: 简单 pulse */
+  .test1 {
+    width: 100px; height: 100px; background: #a83228;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.5; }
+  }
+
+  /* 测试2: 移动 */
+  .test2 {
+    width: 60px; height: 60px; background: #5a7256;
+    animation: slide 3s ease-in-out infinite;
+  }
+  @keyframes slide {
+    0%,100% { transform: translateX(0); }
+    50% { transform: translateX(200px); }
+  }
+
+  /* 测试3: 纸纹 (与项目相同) */
+  .test3 {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background: rgba(168,50,40,0.15);
+    animation: grainBreathe 4s ease-in-out infinite;
+  }
+  @keyframes grainBreathe {
+    0%,100% { opacity: 0.05; }
+    50% { opacity: 0.2; }
+  }
+
+  /* 测试4: 文字金色流光 */
+  .test4 {
+    font-size: 2rem; font-weight: 900;
+    background: linear-gradient(105deg, #b8893a 0%, #f5e6b8 30%, #b8893a 50%, #a17a30 70%, #b8893a 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent; -webkit-text-fill-color: transparent;
+    animation: goldFlow 3s linear infinite;
+    display: inline-block;
+  }
+  @keyframes goldFlow {
+    0% { background-position: 200% 0; }
+    100% { background-position: -100% 0; }
+  }
+</style>
+</head>
+<body>
+  <div class="test3"></div>
+  <h1>CSS Animation 测试页面</h1>
+  <h2>测试1: 红色方块 pulse (缩放+透明度)</h2>
+  <div class="test1"></div>
+  <h2>测试2: 绿色方块 slide (左右移动)</h2>
+  <div class="test2"></div>
+  <h2>测试3: 纸纹呼吸 (整页淡红闪烁)</h2>
+  <p>看整页是否有微弱红色明暗变化</p>
+  <h2>测试4: 金色流光文字</h2>
+  <p class="test4">歌以铸魂</p>
+  <p>如果以上4个动画都看不到，说明浏览器/系统禁用了 CSS animation。</p>
+</body>
+</html>
