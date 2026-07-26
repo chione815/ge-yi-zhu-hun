@@ -1,18 +1,19 @@
 :root {
-  --paper: #fbfaf5;
-  --paper-deep: #f2efe4;
+  --paper: #f4ecd8;
+  --paper-rice: #faf2dd;
+  --paper-deep: #e8dfc5;
   --paper-tag: #ebe1c5;
-  --ink: #181511;
-  --ink-soft: #4d473f;
+  --ink: #1a1410;
+  --ink-soft: #5a504a;
   --line: #15120f;
-  --jade: #0f6a58;
-  --jade-deep: #064a3e;
-  --cinnabar: #b23a2c;
-  --gold: #d8a449;
+  --bronze: #5a7256;
+  --bronze-deep: #3d4f3e;
+  --cinnabar: #a83228;
+  --gold: #b8893a;
   --shadow-soft: 0 1px 0 rgba(26, 20, 16, 0.05), 0 18px 36px -16px rgba(26, 20, 16, 0.08);
   --shadow: var(--shadow-soft);
   --radius: 2px;
-  --max: 1180px;
+  --max: 880px;
 }
 
 * {
@@ -27,11 +28,11 @@ html {
 body {
   margin: 0;
   color: var(--ink);
-  background:
-    linear-gradient(90deg, rgba(15, 106, 88, 0.035) 1px, transparent 1px),
-    linear-gradient(0deg, rgba(24, 21, 17, 0.025) 1px, transparent 1px),
-    var(--paper);
-  background-size: 38px 38px, 38px 38px, auto;
+  background-color: var(--paper);
+  background-image: url("../assets/images/paper-texture.jpg");
+  background-repeat: repeat;
+  background-size: 1200px 1200px;
+  background-attachment: fixed;
   font-family: "Noto Serif SC", "Source Han Serif SC", "Microsoft YaHei", SimSun, serif;
   line-height: 1.75;
   letter-spacing: 0;
@@ -150,6 +151,33 @@ textarea {
   margin: 42px auto 0;
 }
 
+.section-panel + .section-panel::before {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 28px;
+  margin: 0 auto 36px;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56 28' fill='none' stroke='%23a83228' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M6 4 L28 24 L50 4'/%3E%3Cpath d='M28 6 L28 24'/%3E%3Cpath d='M14 4 L14 12 M42 4 L42 12' stroke-width='1'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.55;
+  position: relative;
+}
+
+.section-panel + .section-panel::after {
+  content: "翻 页";
+  display: block;
+  text-align: center;
+  font-family: "Noto Serif SC", "FZ清刻本悦宋", "Source Han Serif SC", "Microsoft YaHei", serif;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.6em;
+  text-indent: 0.6em;
+  margin-top: -8px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
 .hero {
   padding-top: 10px;
 }
@@ -160,7 +188,7 @@ textarea {
   border: 1px solid rgba(26, 20, 16, 0.18);
   background:
     radial-gradient(circle at 18% 18%, rgba(216, 164, 73, 0.12), transparent 32%),
-    linear-gradient(135deg, rgba(15, 106, 88, 0.08), rgba(255, 255, 255, 0) 45%),
+    linear-gradient(135deg, rgba(90, 114, 86, 0.08), rgba(255, 255, 255, 0) 45%),
     rgba(255, 255, 255, 0.64);
   box-shadow: var(--shadow);
 }
@@ -181,10 +209,36 @@ textarea {
 }
 
 .eyebrow {
-  margin: 0 0 12px;
-  color: var(--cinnabar);
-  font-size: 0.92rem;
-  font-weight: 700;
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 0 0 28px;
+  background:
+    url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 0.92 0 0 0 0 0.85 0 0 0 0.18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    var(--cinnabar);
+  color: var(--paper-rice);
+  font-family: "Noto Serif SC", "FZ清刻本悦宋", "Source Han Serif SC", "Microsoft YaHei", serif;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.32em;
+  box-shadow:
+    inset 0 0 0 2px var(--cinnabar),
+    inset 0 0 0 3px rgba(250, 242, 221, 0.5),
+    inset 0 3px 14px rgba(70, 18, 12, 0.35),
+    0 2px 6px rgba(168, 50, 40, 0.25);
+  transform: rotate(-2deg);
+  transform-origin: left center;
+  text-indent: 0.32em;
+}
+
+.eyebrow::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background:
+    url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.65 0 0 0 0 0.18 0 0 0 0 0.15 0 0 0 0.4 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+  pointer-events: none;
 }
 
 .hero h1 {
@@ -235,7 +289,7 @@ textarea {
 
 .btn.primary {
   color: #fff;
-  background: var(--jade);
+  background: var(--bronze);
 }
 
 .btn.secondary {
@@ -249,7 +303,7 @@ textarea {
 
 .hero-visual img {
   width: min(380px, 100%);
-  filter: drop-shadow(0 18px 30px rgba(15, 106, 88, 0.22));
+  filter: drop-shadow(0 18px 30px rgba(90, 114, 86, 0.22));
 }
 
 .home-grid {
@@ -267,9 +321,9 @@ textarea {
 .member-card,
 .advisor-card {
   position: relative;
-  border: 0;
+  border: 1px solid rgba(26, 20, 16, 0.22);
   border-radius: var(--radius);
-  background: rgba(244, 236, 216, 0.55);
+  background: rgba(250, 242, 221, 0.78);
   box-shadow: var(--shadow-soft);
 }
 
@@ -287,7 +341,7 @@ textarea {
   border: 1px solid var(--line);
   border-radius: 50%;
   color: #fff;
-  background: var(--jade);
+  background: var(--bronze);
   font-weight: 800;
 }
 
@@ -333,7 +387,7 @@ textarea {
 .metric-strip strong,
 .insight-grid strong {
   display: block;
-  color: var(--jade-deep);
+  color: var(--bronze-deep);
   font-size: 2rem;
   line-height: 1.1;
   font-variant-numeric: tabular-nums;
@@ -506,7 +560,7 @@ strong[data-count].counting {
 
 .patent-name {
   margin: 0 0 14px;
-  color: var(--jade-deep);
+  color: var(--bronze-deep);
   font-size: 1.15rem;
   font-weight: 900;
 }
@@ -568,7 +622,7 @@ strong[data-count].counting {
   border: 1px solid rgba(26, 20, 16, 0.16);
   border-radius: 6px;
   background: #fff;
-  color: var(--jade-deep);
+  color: var(--bronze-deep);
   font-weight: 800;
 }
 
@@ -621,7 +675,7 @@ strong[data-count].counting {
   position: absolute;
   inset: 0 auto 0 0;
   width: 0;
-  background: linear-gradient(90deg, var(--jade), var(--gold));
+  background: linear-gradient(90deg, var(--bronze), var(--gold));
   transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -673,7 +727,7 @@ strong[data-count].counting {
   padding: 4px 10px;
   border: 1px solid rgba(26, 20, 16, 0.16);
   border-radius: 999px;
-  color: var(--jade-deep);
+  color: var(--bronze-deep);
   background: var(--paper-tag);
   font-weight: 800;
 }
@@ -689,12 +743,12 @@ strong[data-count].counting {
 .advisor-card {
   padding: 30px;
   background:
-    linear-gradient(180deg, rgba(15, 106, 88, 0.09), rgba(255, 255, 255, 0.6)),
+    linear-gradient(180deg, rgba(90, 114, 86, 0.09), rgba(255, 255, 255, 0.6)),
     #fff;
 }
 
 .member-name {
-  color: var(--jade-deep);
+  color: var(--bronze-deep);
   font-family: KaiTi, STKaiti, "FangSong", serif;
   font-size: 2rem;
   font-weight: 800;
@@ -755,7 +809,7 @@ strong[data-count].counting {
   border: 1px solid var(--line);
   border-radius: 50%;
   color: #fff;
-  background: var(--jade);
+  background: var(--bronze);
   font-size: 1.25rem;
   font-weight: 900;
   cursor: pointer;
@@ -783,7 +837,7 @@ strong[data-count].counting {
   border: 1px solid rgba(26, 20, 16, 0.16);
   border-radius: 50%;
   background: rgba(251, 250, 245, 0.94);
-  color: var(--jade-deep);
+  color: var(--bronze-deep);
   font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -823,6 +877,34 @@ strong[data-count].counting {
 
 .site-footer p {
   margin: 4px 0;
+}
+
+.signature-seal {
+  display: inline-block;
+  margin: 18px 0 6px;
+  padding: 4px 12px;
+  background: var(--cinnabar);
+  color: var(--paper-rice);
+  font-family: "Noto Serif SC", "FZ清刻本悦宋", "Source Han Serif SC", "Microsoft YaHei", serif;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.32em;
+  text-indent: 0.32em;
+  transform: rotate(-3deg);
+  box-shadow:
+    inset 0 0 0 1.5px var(--cinnabar),
+    inset 0 0 0 2.5px rgba(250, 242, 221, 0.5),
+    inset 0 2px 8px rgba(70, 18, 12, 0.3);
+  position: relative;
+}
+
+.signature-seal::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='40'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.88 0 0 0 0 0.8 0 0 0 0.2 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+  pointer-events: none;
 }
 
 .reveal {
@@ -1026,12 +1108,12 @@ strong[data-count].counting {
 
 /* ===== 模块 1：水墨晕染开屏（载入动画） ===== */
 :root {
-  --paper-aged: #f5efe1;
-  --paper-vellum: #ede4cd;
+  --paper-aged: #ede2c4;
+  --paper-vellum: #e0d3a8;
   --ink-deep: #0a0805;
   --ink-shadow: rgba(10, 8, 5, 0.12);
   --seal-red: #a83228;
-  --gold-thread: #b8893a;
+  --gold-thread: #a17a30;
 }
 
 .ink-loader {
