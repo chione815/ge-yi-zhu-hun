@@ -109,58 +109,63 @@ sectionTitles.forEach(function (title) {
   });
 });
 
-if ("IntersectionObserver" in window) {
-  const titleObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("in-view");
-          titleObserver.unobserve(entry.target);
-        }
-      });
-    },
-    { rootMargin: "0px 0px -10% 0px", threshold: 0.2 }
-  );
-  sectionTitles.forEach((title) => titleObserver.observe(title));
-  if (brand) titleObserver.observe(brand);
-  memberNames.forEach((name) => titleObserver.observe(name));
-
-  // blur-reveal-text 观察器
-  var blurItems = Array.from(document.querySelectorAll(".blur-reveal-text"));
-  var blurObserver = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("in-view");
-          blurObserver.unobserve(entry.target);
-        }
-      });
-    },
-    { rootMargin: "0px 0px -6% 0px", threshold: 0.12 }
-  );
-  blurItems.forEach(function (item) { blurObserver.observe(item); });
-
-  // 模块 6：卷轴展读观察器
-  var scrollReveals = Array.from(document.querySelectorAll(".reveal-scroll"));
-  var scrollRevealObserver = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-unfurling");
-          entry.target.classList.remove("is-preparing");
-          // 暖色光感过渡完成后移除 sepia
-          setTimeout(function () {
+// 动画观察器：延迟到 loader 结束后再启动，避免在 visibility:hidden 期间触发
+setTimeout(function () {
+  if ("IntersectionObserver" in window) {
+    var titleObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
             entry.target.classList.add("in-view");
-            entry.target.classList.remove("is-unfurling");
-          }, 200);
-          scrollRevealObserver.unobserve(entry.target);
-        }
-      });
-    },
-    { rootMargin: "0px 0px -8% 0px", threshold: 0.1 }
-  );
-  scrollReveals.forEach(function (item) { scrollRevealObserver.observe(item); });
-} else {
+            titleObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.2 }
+    );
+    sectionTitles.forEach(function (title) { titleObserver.observe(title); });
+    if (brand) titleObserver.observe(brand);
+    memberNames.forEach(function (name) { titleObserver.observe(name); });
+
+    // blur-reveal-text 观察器
+    var blurItems = Array.from(document.querySelectorAll(".blur-reveal-text"));
+    var blurObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+            blurObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: "0px 0px -6% 0px", threshold: 0.12 }
+    );
+    blurItems.forEach(function (item) { blurObserver.observe(item); });
+
+    // 卷轴展读观察器
+    var scrollReveals = Array.from(document.querySelectorAll(".reveal-scroll"));
+    var scrollRevealObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-unfurling");
+            entry.target.classList.remove("is-preparing");
+            setTimeout(function () {
+              entry.target.classList.add("in-view");
+              entry.target.classList.remove("is-unfurling");
+            }, 200);
+            scrollRevealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: "0px 0px -8% 0px", threshold: 0.1 }
+    );
+    scrollReveals.forEach(function (item) { scrollRevealObserver.observe(item); });
+  }
+}, 5000);
+
+// 非动画观察器保持原样（不延迟）
+if (!("IntersectionObserver" in window)) {
   sectionTitles.forEach((title) => title.classList.add("in-view"));
   if (brand) brand.classList.add("in-view");
   memberNames.forEach((name) => name.classList.add("in-view"));
