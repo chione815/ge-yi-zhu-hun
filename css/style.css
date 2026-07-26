@@ -486,26 +486,44 @@ strong[data-count].counting {
 
 .framework {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  gap: 0;
   margin: 20px 0;
+  padding: 18px 22px;
+  border-left: 2px solid var(--cinnabar);
+  background: rgba(250, 242, 221, 0.4);
 }
-
-.framework span {
-  flex: 1;
-  min-width: 0;
-  padding: 10px 8px;
-  border: 1px solid rgba(26, 20, 16, 0.16);
-  border-radius: 999px;
-  background: var(--paper-tag);
-  text-align: center;
+.framework-row {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  gap: 14px;
+  align-items: baseline;
+  padding: 10px 0;
+  border-bottom: 1px dashed rgba(26, 20, 16, 0.2);
+}
+.framework-row:last-child { border-bottom: 0; }
+.framework-num {
+  color: var(--cinnabar);
+  font-family: "Ma Shan Zheng", serif;
+  font-size: 1.4rem;
+  font-weight: 900;
+}
+.framework-title {
+  color: var(--ink);
   font-weight: 800;
+  font-size: 1.1rem;
 }
-
-.framework i {
-  width: 26px;
-  height: 2px;
-  background: var(--line);
+.framework-desc {
+  color: var(--ink-soft);
+  font-size: 0.88rem;
+  font-style: italic;
+}
+.framework-divider {
+  text-align: center;
+  color: var(--cinnabar);
+  opacity: 0.4;
+  font-size: 0.9rem;
+  padding: 2px 0;
 }
 
 .section-title {
