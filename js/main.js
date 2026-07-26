@@ -7,11 +7,12 @@ const videos = Array.from(document.querySelectorAll("video"));
 const revealItems = Array.from(document.querySelectorAll(".reveal"));
 const scrollHint = document.querySelector(".scroll-hint");
 
-// 兜底：无论 JS 后续是否出错，2 秒后强制显示所有 reveal 元素
+// 兜底：无论 JS 后续是否出错，2 秒后强制显示所有动画元素
 setTimeout(function () {
-  var all = document.querySelectorAll(".reveal");
+  var all = document.querySelectorAll(".reveal, .reveal-scroll, .blur-reveal-text");
   for (var i = 0; i < all.length; i++) {
     all[i].classList.add("in-view");
+    all[i].classList.remove("is-preparing");
   }
 }, 2000);
 
@@ -138,6 +139,27 @@ if ("IntersectionObserver" in window) {
     { rootMargin: "0px 0px -6% 0px", threshold: 0.12 }
   );
   blurItems.forEach(function (item) { blurObserver.observe(item); });
+
+  // 模块 6：卷轴展读观察器
+  var scrollReveals = Array.from(document.querySelectorAll(".reveal-scroll"));
+  var scrollRevealObserver = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-unfurling");
+          entry.target.classList.remove("is-preparing");
+          // 暖色光感过渡完成后移除 sepia
+          setTimeout(function () {
+            entry.target.classList.add("in-view");
+            entry.target.classList.remove("is-unfurling");
+          }, 200);
+          scrollRevealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { rootMargin: "0px 0px -8% 0px", threshold: 0.1 }
+  );
+  scrollReveals.forEach(function (item) { scrollRevealObserver.observe(item); });
 } else {
   sectionTitles.forEach((title) => title.classList.add("in-view"));
   if (brand) brand.classList.add("in-view");
