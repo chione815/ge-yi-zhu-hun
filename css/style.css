@@ -369,6 +369,45 @@ textarea {
   color: var(--ink-soft);
 }
 
+.data-prose {
+  margin: 18px 0 0;
+  color: var(--ink);
+  font-size: 1.02rem;
+  line-height: 2;
+  text-align: justify;
+  text-justify: inter-character;
+}
+
+.num-mark {
+  display: inline-block;
+  margin: 0 2px;
+  padding: 0 4px 1px;
+  color: var(--cinnabar);
+  font-family: "LXGW WenKai", "FZ清刻本悦宋", "Noto Serif SC", "Source Han Serif SC", serif;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  border-bottom: 1.5px dashed var(--cinnabar);
+  position: relative;
+  transition: color 200ms ease;
+}
+
+.num-mark::before {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: calc(100% - 2px);
+  background: var(--cinnabar);
+  opacity: 0.4;
+}
+
+strong[data-count].counting,
+.num-mark.counting {
+  color: #6b1810;
+}
+
 .metric-strip {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
