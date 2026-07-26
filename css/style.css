@@ -1639,6 +1639,56 @@ body:not(.is-loading) .ink-loader {
   animation-play-state: paused;
 }
 
+/* ===== 模块 4：雕版逐字着墨 — 改造自 NHM letterBlock ===== */
+.section-title h2 {
+  /* 重置 h2 原有的渐变揭示动画，改用逐字着墨 */
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  color: var(--ink);
+  -webkit-text-fill-color: currentColor;
+  filter: drop-shadow(0 1px 0 rgba(24, 21, 17, 0.12));
+}
+
+/* h2 下划线保留 */
+.section-title.in-view h2::after {
+  width: 100%;
+}
+
+.char-woodblock {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(3px);
+  transform: translateY(0.5em) scale(0.94);
+  transition:
+    opacity 0.55s cubic-bezier(0.3, 1, 0.4, 1),
+    filter 0.55s cubic-bezier(0.3, 1, 0.4, 1),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  /* 初始状态：墨未落纸 — 模糊、半透明、略微偏移 */
+}
+
+.section-title.in-view .char-woodblock {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0) scale(1);
+}
+
+/* 随机微延迟由 JS 设置 inline style，模拟手工刷墨的不均匀性 */
+
+/* ===== 模块 5：墨韵渐显 — 改造自 ASME BlurText ===== */
+.blur-reveal-text {
+  opacity: 0.35;
+  filter: blur(6px);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.blur-reveal-text.in-view {
+  opacity: 1;
+  filter: blur(0);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ink-core,
   .ink-stage-title,

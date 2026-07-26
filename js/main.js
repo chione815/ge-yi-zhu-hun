@@ -81,6 +81,33 @@ const sectionTitles = Array.from(document.querySelectorAll(".section-title"));
 const brand = document.querySelector(".brand");
 const memberNames = Array.from(document.querySelectorAll(".member-name"));
 
+// 模块 5：墨韵渐显 — section-title 下的描述段落自动添加模糊入场
+sectionTitles.forEach(function (title) {
+  var paras = title.querySelectorAll("p:not(.eyebrow)");
+  paras.forEach(function (p, i) {
+    p.classList.add("blur-reveal-text");
+    p.style.transitionDelay = (i * 180) + "ms";
+  });
+});
+
+// 模块 4：雕版逐字着墨 — 将 h2 拆分为逐字 span，手工刷墨的不均匀延迟
+sectionTitles.forEach(function (title) {
+  var h2 = title.querySelector("h2");
+  if (!h2) return;
+  var text = h2.textContent || "";
+  h2.textContent = "";
+  var chars = text.split("");
+  chars.forEach(function (ch, i) {
+    var span = document.createElement("span");
+    span.className = "char-woodblock";
+    span.textContent = ch;
+    // 模拟手工刷墨的不均匀：每个字有 0~80ms 的随机微延迟
+    var jitter = Math.random() * 80;
+    span.style.transitionDelay = (i * 95 + jitter) + "ms";
+    h2.appendChild(span);
+  });
+});
+
 if ("IntersectionObserver" in window) {
   const titleObserver = new IntersectionObserver(
     (entries) => {
@@ -96,6 +123,21 @@ if ("IntersectionObserver" in window) {
   sectionTitles.forEach((title) => titleObserver.observe(title));
   if (brand) titleObserver.observe(brand);
   memberNames.forEach((name) => titleObserver.observe(name));
+
+  // blur-reveal-text 观察器
+  var blurItems = Array.from(document.querySelectorAll(".blur-reveal-text"));
+  var blurObserver = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          blurObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { rootMargin: "0px 0px -6% 0px", threshold: 0.12 }
+  );
+  blurItems.forEach(function (item) { blurObserver.observe(item); });
 } else {
   sectionTitles.forEach((title) => title.classList.add("in-view"));
   if (brand) brand.classList.add("in-view");
