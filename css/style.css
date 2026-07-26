@@ -1585,6 +1585,60 @@ body:not(.is-loading) .ink-loader {
   to { width: 100%; }
 }
 
+/* ===== 模块 2：宣纸纤维呼吸（持续运行）- 改造自 Aura noise filter ===== */
+.paper-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.45 0.35' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0.94 0 0 0 0.05 0.90 0 0 0 0.04 0.86 0 0 0 0.02 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 320px 320px;
+  opacity: 0.025;
+  mix-blend-mode: multiply;
+  animation: grainBreathe 8s ease-in-out infinite;
+}
+
+/* 纸纤维在不同湿度和光照下的微弱变化 */
+@keyframes grainBreathe {
+  0%, 100% { opacity: 0.022; }
+  20%  { opacity: 0.035; }
+  50%  { opacity: 0.028; }
+  70%  { opacity: 0.04; }
+}
+
+/* ===== 模块 3：金粉流光 — 改造自 Aura shiny text ===== */
+.gold-shimmer {
+  display: inline-block;
+  background: linear-gradient(
+    105deg,
+    var(--gold) 0%,
+    #d4b56c 18%,
+    #f5e6b8 32%,
+    var(--gold) 48%,
+    #a17a30 62%,
+    #d4b56c 82%,
+    var(--gold) 100%
+  );
+  background-size: 240% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: goldFlow 12s linear infinite;
+  filter: url(#gold-glimmer-filter);
+}
+
+@keyframes goldFlow {
+  0% { background-position: 240% 0; }
+  100% { background-position: -120% 0; }
+}
+
+/* 只在页面可见时运行金粉动画，节省资源 */
+.gold-shimmer.paused {
+  animation-play-state: paused;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ink-core,
   .ink-stage-title,

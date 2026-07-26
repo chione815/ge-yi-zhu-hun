@@ -13,6 +13,32 @@
 </head>
 <body class="is-loading">
 
+  <!-- SVG 滤镜库：纸纹、墨染、金粉等共享滤镜 -->
+  <svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+    <defs>
+      <!-- 纸纹噪点滤镜：模拟宣纸纤维的不规则颗粒感 -->
+      <filter id="paper-grain-filter" x="0" y="0" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.35 0.25" numOctaves="4" stitchTiles="stitch" result="noise"/>
+        <feColorMatrix type="matrix" values="0.92 0 0 0 0.06  0.88 0 0 0 0.04  0.82 0 0 0 0.02  0 0 0 0.08 0" in="noise" result="colored"/>
+      </filter>
+      <!-- 墨染渗透滤镜：模拟墨滴在宣纸上的不规则扩散 -->
+      <filter id="ink-bleed-filter" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="3" stitchTiles="stitch" result="turbulence"/>
+        <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="0" xChannelSelector="R" yChannelSelector="G" result="displaced"/>
+        <feGaussianBlur in="displaced" stdDeviation="0" result="blurred"/>
+        <feColorMatrix in="blurred" type="matrix" values="0.05 0 0 0 0.05  0.03 0 0 0 0.03  0.02 0 0 0 0.02  0 0 0 0.9 0" result="ink-colored"/>
+      </filter>
+      <!-- 古金微光滤镜 -->
+      <filter id="gold-glimmer-filter" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" stitchTiles="stitch" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- 纸纹呼吸层：基于SVG噪点 + 微妙的透明度波动 -->
+  <div class="paper-grain" aria-hidden="true"></div>
+
   <div class="ink-loader" aria-hidden="true">
     <div class="ink-stage">
       <div class="ink-orbit" aria-hidden="true">
@@ -26,7 +52,7 @@
       <div class="ink-glow" aria-hidden="true"></div>
       <div class="ink-core"></div>
       <h1 class="ink-stage-title">歌以铸魂</h1>
-      <p class="ink-subtitle">·弦歌声起·</p>
+      <p class="ink-subtitle gold-shimmer">·弦歌声起·</p>
       <div class="ink-poem-left" aria-hidden="true">弦歌声起<br>家国梦圆<br>经典咏传<br>少年志远</div>
       <div class="ink-seal-corner" aria-hidden="true">传承</div>
       <div class="ink-progress">

@@ -211,6 +211,17 @@ if (countItems.length && "IntersectionObserver" in window) {
   });
 }
 
+// 页面不可见时暂停持续动画，节省 CPU
+document.addEventListener("visibilitychange", () => {
+  const grain = document.querySelector(".paper-grain");
+  if (grain) {
+    grain.style.animationPlayState = document.hidden ? "paused" : "running";
+  }
+  document.querySelectorAll(".gold-shimmer").forEach((el) => {
+    el.classList.toggle("paused", document.hidden);
+  });
+});
+
 const heroBanner = document.querySelector(".hero-banner img");
 if (heroBanner) {
   let ticking = false;
