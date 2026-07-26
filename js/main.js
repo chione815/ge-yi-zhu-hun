@@ -7,14 +7,14 @@ const videos = Array.from(document.querySelectorAll("video"));
 const revealItems = Array.from(document.querySelectorAll(".reveal"));
 const scrollHint = document.querySelector(".scroll-hint");
 
-// 兜底：无论 JS 后续是否出错，2 秒后强制显示所有动画元素
+// 兜底：loader 结束 1 秒后再强制显示所有动画元素
 setTimeout(function () {
   var all = document.querySelectorAll(".reveal, .reveal-scroll, .blur-reveal-text");
   for (var i = 0; i < all.length; i++) {
     all[i].classList.add("in-view");
     all[i].classList.remove("is-preparing");
   }
-}, 2000);
+}, 5500);
 
 if (navToggle && mainNav) {
   navToggle.addEventListener("click", () => {
