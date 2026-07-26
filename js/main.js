@@ -291,12 +291,20 @@ document.addEventListener("visibilitychange", () => {
   });
 });
 
-const heroBanner = document.querySelector(".hero-banner img");
-if (heroBanner) {
+// 山水远近三层视差（Michael Smith 改造）：远山 0.06 / 中景 0.20 / 近景 0.42
+const heroBannerEl = document.querySelector(".hero-banner");
+const heroBannerImg = document.querySelector(".hero-banner img");
+if (heroBannerEl) {
   let ticking = false;
   const updateParallax = () => {
-    const offset = Math.min(window.scrollY * 0.25, 80);
-    heroBanner.style.transform = `translateY(${offset}px) scale(${1 + offset / 2000})`;
+    const y = window.scrollY;
+    heroBannerEl.style.setProperty("--py-far", (y * 0.06).toFixed(1) + "px");
+    heroBannerEl.style.setProperty("--py-near", (y * 0.42).toFixed(1) + "px");
+    if (heroBannerImg) {
+      const off = Math.min(y * 0.2, 56);
+      heroBannerImg.style.transform =
+        "translateY(" + off.toFixed(1) + "px) scale(" + (1 + off / 2400).toFixed(4) + ")";
+    }
     ticking = false;
   };
   window.addEventListener(
@@ -309,4 +317,5 @@ if (heroBanner) {
     },
     { passive: true }
   );
+  updateParallax();
 }

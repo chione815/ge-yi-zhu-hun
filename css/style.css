@@ -206,6 +206,10 @@ textarea {
   border-radius: 6px;
   background: var(--paper);
   overflow: hidden;
+  position: relative;
+  isolation: isolate;
+  --py-far: 0px;
+  --py-near: 0px;
 }
 
 .hero-banner img {
@@ -213,6 +217,42 @@ textarea {
   height: auto;
   object-fit: contain;
   will-change: transform;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== 山水远近三层视差（Michael Smith 改造）=====
+   远山：淡墨双层山形，飘在图前，最慢 (scrollY * 0.06)
+   中景：home-hero.jpg，中速 (scrollY * 0.20)
+   近景：底部浓墨题款带，最快 (scrollY * 0.42)
+================================================ */
+.hero-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 200' preserveAspectRatio='none'%3E%3Cpath d='M0 200 L0 140 Q60 100 130 130 Q200 160 280 110 Q360 70 440 120 Q520 165 600 120 Q680 85 760 130 L800 140 L800 200 Z' fill='%236b7a6c' opacity='0.55'/%3E%3Cpath d='M0 200 L0 175 Q80 150 170 170 Q260 188 350 165 Q440 142 530 175 Q620 200 710 175 L800 180 L800 200 Z' fill='%231a1410' opacity='0.45'/%3E%3C/svg%3E") center bottom / 100% 42% no-repeat;
+  opacity: 0.2;
+  will-change: transform;
+  transform: translateY(var(--py-far, 0px));
+}
+
+.hero-banner::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 16%;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    linear-gradient(to right, transparent 0%, transparent 74%, rgba(184, 137, 58, 0.55) 74.5%, rgba(184, 137, 58, 0.55) 75.2%, transparent 76%),
+    linear-gradient(to top, rgba(26, 20, 16, 0.46) 0%, rgba(26, 20, 12, 0.18) 55%, transparent 100%);
+  will-change: transform;
+  transform: translateY(var(--py-near, 0px));
 }
 
 .eyebrow {
