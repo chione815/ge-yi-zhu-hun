@@ -1723,6 +1723,70 @@ body:not(.is-loading) .ink-loader {
 .reveal-scroll:nth-child(4) { transition-delay: 360ms; }
 .reveal-scroll:nth-child(5) { transition-delay: 480ms; }
 
+/* ===== 模块 7：朱印呼吸 — 印章微动效 ===== */
+.eyebrow,
+.card-index,
+.signature-seal {
+  animation: sealBreathe 6s ease-in-out infinite;
+  transition:
+    transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 280ms ease,
+    filter 280ms ease;
+}
+
+/* hover 时印章微微浮起，墨色加深 */
+.eyebrow:hover,
+.card-index:hover,
+.signature-seal:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.08) contrast(1.05);
+  box-shadow:
+    inset 0 0 0 2px var(--cinnabar),
+    inset 0 0 0 3px rgba(250, 242, 221, 0.5),
+    inset 0 4px 16px rgba(70, 18, 12, 0.45),
+    0 6px 18px rgba(168, 50, 40, 0.3) !important;
+}
+
+/* 点击时印章盖下 */
+.eyebrow:active,
+.card-index:active,
+.signature-seal:active {
+  transform: scale(0.93);
+  filter: brightness(0.95) contrast(1.1);
+  transition: transform 120ms ease, filter 120ms ease;
+}
+
+/* 各印章独立的动画延迟，避免同步 */
+.card-index { animation-delay: -1.2s; }
+.signature-seal { animation-delay: -3.5s; }
+
+@keyframes sealBreathe {
+  0%, 100% {
+    filter: brightness(1) contrast(1);
+    box-shadow:
+      inset 0 0 0 2px var(--cinnabar),
+      inset 0 0 0 3px rgba(250, 242, 221, 0.5),
+      inset 0 3px 14px rgba(70, 18, 12, 0.35),
+      0 2px 6px rgba(168, 50, 40, 0.25);
+  }
+  30% {
+    filter: brightness(1.05) contrast(1.03);
+    box-shadow:
+      inset 0 0 0 2px var(--cinnabar),
+      inset 0 0 0 3px rgba(250, 242, 221, 0.5),
+      inset 0 4px 16px rgba(70, 18, 12, 0.42),
+      0 4px 10px rgba(168, 50, 40, 0.32);
+  }
+  60% {
+    filter: brightness(0.97) contrast(0.98);
+    box-shadow:
+      inset 0 0 0 2px var(--cinnabar),
+      inset 0 0 0 3px rgba(250, 242, 221, 0.5),
+      inset 0 2px 10px rgba(70, 18, 12, 0.28),
+      0 1px 4px rgba(168, 50, 40, 0.18);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ink-core,
   .ink-stage-title,
