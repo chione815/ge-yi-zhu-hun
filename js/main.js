@@ -319,3 +319,74 @@ if (heroBannerEl) {
   );
   updateParallax();
 }
+
+// 专利图廊：横向无限循环滚动 + 灯箱放大
+(function initPatentGallery() {
+  const gallery = document.querySelector(".patent-gallery");
+  if (!gallery) return;
+  const items = Array.from(gallery.querySelectorAll("a"));
+  if (items.length < 2) return;
+
+  const track = document.createElement("div");
+  track.className = "patent-track";
+  items.forEach((a) => track.appendChild(a));
+  // 克隆一份接尾做无缝循环
+  items.forEach((a) => track.appendChild(a.cloneNode(true)));
+  gallery.appendChild(track);
+
+  let lb = null;
+  const open = (href, alt) => {
+    close();
+    lb = document.createElement("div");
+    lb.className = "patent-lightbox";
+    lb.innerHTML =
+      '<button class="patent-lightbox-close" type="button" aria-label="关闭">×</button>' +
+      '<img alt="' + (alt || "") + '">';
+    lb.querySelector("img").src = href;
+    document.body.appendChild(lb);
+    // 点图片外区域（背景 / × 按钮）关闭；点图片本身不关
+    lb.addEventListener("click", (e) => {
+      if (e.target === lb) close();
+    });
+    const closeBtn = lb.querySelector(".patent-lightbox-close");
+    if (closeBtn) {
+      closeBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        close();
+      });
+    }
+    requestAnimationFrame(() => lb && lb.classList.add("is-open"));
+    track.classList.add("is-paused");
+  };
+  const close = () => {
+    if (!lb) return;
+    lb.classList.remove("is-open");
+    const node = lb;
+    setTimeout(() => node.remove(), 280);
+    lb = null;
+    track.classList.remove("is-paused");
+  };
+
+  track.addEventListener("click", (e) => {
+    const a = e.target.closest("a");
+    if (!a) return;
+    e.preventDefault();
+    const img = a.querySelector("img");
+    open(a.getAttribute("href"), img ? img.alt : "");
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") close();
+  });
+
+  // 离开视口时暂停，节省 CPU
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        track.classList.toggle("is-paused", !entry.isIntersecting || !!lb);
+      },
+      { threshold: 0.01 }
+    );
+    io.observe(gallery);
+  }
+})();
