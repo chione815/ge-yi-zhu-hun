@@ -712,31 +712,106 @@ strong[data-count].counting {
 }
 
 .patent-gallery {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
+  position: relative;
+  overflow: hidden;
   margin-top: 22px;
+  /* 两端渐隐，强化无限循环的视觉 */
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 3%, #000 97%, transparent 100%);
+          mask-image: linear-gradient(to right, transparent 0, #000 3%, #000 97%, transparent 100%);
 }
 
-.patent-gallery a {
+.patent-track {
+  display: flex;
+  gap: 14px;
+  width: max-content;
+  --scroll-dur: 42s;
+  animation: patentScroll var(--scroll-dur) linear infinite;
+}
+.patent-gallery:hover .patent-track {
+  --scroll-dur: 88s;
+}
+.patent-track.is-paused {
+  animation-play-state: paused;
+}
+
+.patent-track a {
+  flex: 0 0 220px;
   display: block;
   padding: 8px;
   border: 1px solid rgba(26, 20, 16, 0.16);
   border-radius: 6px;
   background: #fff;
-  transition: transform 160ms ease, box-shadow 160ms ease;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+.patent-track a:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(26, 20, 16, 0.14);
+  border-color: var(--cinnabar);
 }
 
-.patent-gallery a:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(26, 20, 16, 0.12);
-}
-
-.patent-gallery img {
+.patent-track img {
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: contain;
   background: #fff;
+}
+
+@keyframes patentScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ===== 专利图灯箱 ===== */
+.patent-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: 28px;
+  background: rgba(26, 20, 16, 0.88);
+  cursor: zoom-out;
+  opacity: 0;
+  transition: opacity 260ms ease;
+}
+.patent-lightbox.is-open {
+  opacity: 1;
+}
+.patent-lightbox img {
+  max-width: 92vw;
+  max-height: 86vh;
+  object-fit: contain;
+  border: 1px solid rgba(184, 137, 58, 0.45);
+  background: var(--paper);
+  box-shadow: 0 16px 56px rgba(0, 0, 0, 0.55);
+  transform: scale(0.94);
+  transition: transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: default;
+}
+.patent-lightbox.is-open img {
+  transform: scale(1);
+}
+.patent-lightbox-close {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  border: 1px solid rgba(250, 242, 221, 0.4);
+  border-radius: 50%;
+  color: var(--paper-rice);
+  font-family: "LXGW WenKai", "Noto Serif SC", serif;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 180ms ease, border-color 180ms ease;
+}
+.patent-lightbox-close:hover {
+  background: rgba(250, 242, 221, 0.12);
+  border-color: rgba(250, 242, 221, 0.7);
 }
 
 .link-row {
@@ -1877,4 +1952,272 @@ body:not(.is-loading) .ink-loader {
   .ink-progress-bar::before {
     animation-duration: 1ms !important;
   }
+}
+
+/* ===== 数据气泡图 v2（参考气泡图：1 卫星圆周 + 多静态小圆散落大圆内）=====
+   朝向修复：track 不再自旋，satellite 自身 R(θ)·T + inner R(-θ) 抵消
+            → inner 相对世界恒为 R(0)，文字始终朝上
+   字号+艺术字：static b 1.45rem / core b 2rem (Ma Shan Zheng 毛笔) / satellite 0.95rem
+   减留白：4 角朱点 + 顶底金线 + padding 6→2
+================================================ */
+.data-orbit {
+  position: relative;
+  width: 440px;
+  max-width: 100%;
+  height: 440px;
+  margin: 26px auto 18px;
+  --orbit-dur: 44s;
+  --orbit-radius: 170px;
+  --sat-size: 80px;
+}
+/* 大圆 dashed 朱砂边 */
+.data-orbit::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1.5px dashed var(--cinnabar);
+  border-radius: 50%;
+  opacity: 0.42;
+  pointer-events: none;
+  z-index: 1;
+}
+/* 4 角朱砂小点 — 与 .eyebrow / .card-index 朱印同色 */
+.data-orbit::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle 3.5px at 12px 12px, var(--cinnabar) 0 78%, transparent 80%),
+    radial-gradient(circle 3.5px at calc(100% - 12px) 12px, var(--cinnabar) 0 78%, transparent 80%),
+    radial-gradient(circle 3.5px at 12px calc(100% - 12px), var(--cinnabar) 0 78%, transparent 80%),
+    radial-gradient(circle 3.5px at calc(100% - 12px) calc(100% - 12px), var(--cinnabar) 0 78%, transparent 80%);
+  opacity: 0.55;
+  z-index: 4;
+  mix-blend-mode: multiply;
+}
+/* 顶/底古金细线题款 */
+.data-orbit .data-orbit-frame {
+  position: absolute;
+  inset: 14px 0;
+  pointer-events: none;
+  z-index: 4;
+}
+.data-orbit .data-orbit-frame::before,
+.data-orbit .data-orbit-frame::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 64px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold) 50%, transparent);
+  transform: translateX(-50%);
+}
+.data-orbit .data-orbit-frame::before { top: 0; }
+.data-orbit .data-orbit-frame::after  { bottom: 0; opacity: 0.7; }
+
+/* 静态小圆与核心圆基础 */
+.data-orbit .data-static,
+.data-orbit .data-core {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 280ms ease,
+              border-color 280ms ease;
+  z-index: 2;
+}
+.data-orbit .data-static {
+  width: 102px; height: 102px;
+  padding: 2px;
+  border: 1px dashed rgba(26, 20, 16, 0.34);
+  background: rgba(244, 236, 216, 0.5);  /* 0.78→0.5：减少遮挡 core 文字 */
+  z-index: 1;  /* 2→1：在 core 之下，避免 AABB 重叠区遮挡 core 文字 */
+}
+.data-orbit .data-static:hover {
+  transform: translate(-50%, -50%) scale(1.05);
+  box-shadow: 0 4px 14px rgba(26, 20, 16, 0.1);
+  border-color: var(--cinnabar);
+}
+.data-orbit .data-core {
+  width: 130px; height: 130px;
+  padding: 2px;
+  border: 1.5px solid var(--cinnabar);
+  background: var(--paper);
+  box-shadow: 0 4px 18px rgba(168, 50, 40, 0.12);
+}
+/* --x/--y 定位（translate 已补偿） */
+.data-orbit [style*="--x"] {
+  left: var(--x, 50%);
+  top: var(--y, 50%);
+}
+/* 数字与标签：Noto Serif SC 思源宋体（碑刻/古籍统计感）*/
+.data-orbit .data-static b,
+.data-orbit .data-core b {
+  display: block;
+  font-family: "Noto Serif SC", "LXGW WenKai", "FZ清刻本悦宋", "Source Han Serif SC", "STZhongsong", "STSong", SimSun, serif;
+  font-size: 1.6rem;            /* ↑ from 1.45rem（D-② 紧凑） */
+  font-weight: 700;             /* 宋体 700 而非 900 */
+  color: var(--ink);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+.data-orbit .data-static b .unit,
+.data-orbit .data-core b .unit {
+  font-size: 0.66em;
+  margin-left: 2px;
+  color: var(--ink-soft);
+  font-weight: 400;             /* 单位用宋体 400，与数字 700 形成次级节奏 */
+  font-family: "Noto Serif SC", "LXGW WenKai", serif;
+}
+.data-orbit .data-core b {
+  font-size: 1.85rem;           /* ↓ from 2rem（毛笔已去，宋体小一点更协调）*/
+  color: var(--cinnabar);
+  letter-spacing: 0.04em;
+}
+.data-orbit .data-static span,
+.data-orbit .data-core span {
+  display: block;
+  margin-top: 2px;              /* D-② 紧凑 ↓ from 4px */
+  font-size: 0.88rem;           /* ↑ from 0.82rem */
+  color: var(--ink-soft);
+  letter-spacing: 0.08em;       /* ↓ from 0.14em，更紧凑 */
+  line-height: 1.2;
+  font-family: "Noto Serif SC", "LXGW WenKai", "FZ清刻本悦宋", "Source Han Serif SC", "STZhongsong", "STSong", SimSun, serif;
+}
+.data-orbit .data-core span { font-size: 0.9rem; letter-spacing: 0.16em; }
+
+/* ===== 内部装饰 D-① ===== */
+/* .data-core 顶部 mini .eyebrow 卷首题（无 SVG 噪点，简版）*/
+.data-orbit .data-core::before {
+  content: attr(data-eyebrow);
+  font-family: "LXGW WenKai", "Noto Serif SC", serif;
+  font-size: 0.62rem;
+  color: var(--cinnabar);
+  letter-spacing: 0.32em;
+  font-weight: 700;
+  margin-bottom: 4px;
+  opacity: 0.85;
+}
+/* .data-core 数字下方古金细线（仿 .num-mark 批注）*/
+.data-orbit .data-core::after {
+  content: "";
+  display: block;
+  width: 36px;
+  height: 1px;
+  margin: 6px auto 4px;
+  background: linear-gradient(90deg, transparent, var(--gold) 50%, transparent);
+}
+/* .data-static 数字上方 4×4 朱砂方块 */
+.data-orbit .data-static::before {
+  content: "";
+  display: block;
+  width: 4px;
+  height: 4px;
+  margin: 0 auto 4px;
+  background: var(--cinnabar);
+  opacity: 0.75;
+}
+
+/* ===== v4：4 角非红边小圆沿大圆内壁缓慢环绕运动（文字始终朝上）=====
+   双层嵌套：outer .data-static-pos 沿圆周 R(θ)·T(0,-r)
+             inner .data-static-content 反向 R(-θ) 抵消 → 文字朝上
+   动画：单一 keyframe data-orbit-pos，N 个小圆用 --i + --n 错开起始
+============================================================= */
+.data-orbit-track {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;  /* 在 core (z:2) 之下 */
+}
+.data-orbit .data-static-pos {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 102px;
+  height: 102px;
+  margin: -51px 0 0 -51px;
+  animation: data-orbit-pos var(--orbit-dur, 80s) linear infinite;
+  animation-delay: calc(var(--i, 0) * (var(--orbit-dur, 80s) / var(--n, 4)) * -1);
+  z-index: 1;
+}
+.data-orbit .data-static-content {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px dashed rgba(26, 20, 16, 0.34);
+  background: rgba(244, 236, 216, 0.5);
+  text-align: center;
+  padding: 2px;
+  animation: data-counter-spin var(--orbit-dur, 80s) linear infinite;
+  animation-delay: calc(var(--i, 0) * (var(--orbit-dur, 80s) / var(--n, 4)) * -1);
+  transform-origin: 50% 50%;
+}
+.data-orbit .data-static-content::before {
+  content: "";
+  display: block;
+  width: 4px;
+  height: 4px;
+  margin: 0 auto 4px;
+  background: var(--cinnabar);
+  opacity: 0.75;
+}
+.data-orbit .data-static-content b,
+.data-orbit .data-static-content span {
+  display: block;
+  font-family: "Noto Serif SC", "LXGW WenKai", "FZ清刻本悦宋", "Source Han Serif SC", "STZhongsong", "STSong", SimSun, serif;
+}
+.data-orbit .data-static-content b {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+.data-orbit .data-static-content b .unit {
+  font-size: 0.66em;
+  margin-left: 2px;
+  color: var(--ink-soft);
+  font-weight: 400;
+}
+.data-orbit .data-static-content span {
+  margin-top: 2px;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+}
+@keyframes data-orbit-pos {
+  from { transform: rotate(0deg) translateY(calc(-1 * var(--orbit-radius, 150px))); }
+  to   { transform: rotate(360deg) translateY(calc(-1 * var(--orbit-radius, 150px))); }
+}
+@keyframes data-counter-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
+@media (max-width: 520px) {
+  .data-orbit { width: 340px; height: 340px; }
+  .data-orbit .data-static { width: 76px; height: 76px; }
+  .data-orbit .data-core   { width: 100px; height: 100px; }
+  .data-orbit .data-static b { font-size: 1.15rem; }
+  .data-orbit .data-core b   { font-size: 1.45rem; }
+  .data-orbit .data-static span,
+  .data-orbit .data-core span { font-size: 0.72rem; }
+  .data-orbit .data-core span { font-size: 0.74rem; }
+  .data-orbit .data-static[style*="--x:22%"] { --x: 24%; }
+  .data-orbit .data-static[style*="--x:78%"] { --x: 76%; }
+  .data-orbit .data-static[style*="--x:24%"] { --x: 26%; }
+  /* 移动端 mini .eyebrow 字号缩小 */
+  .data-orbit .data-core::before { font-size: 0.54rem; letter-spacing: 0.28em; }
+  .data-orbit .data-core::after { width: 28px; margin: 4px auto 2px; }
+  .data-orbit .data-static::before { margin: 0 auto 2px; }
 }
