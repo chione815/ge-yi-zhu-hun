@@ -5,13 +5,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>歌以铸魂 | 大学生创新创业训练计划项目展示</title>
   <meta name="description" content="歌以铸魂：中国风流行音乐对青少年家国情怀的建构机制与效果研究项目展示网站">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai:wght@400;700&family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=21">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23b23a2c'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='serif' font-size='18' font-weight='900' fill='%23fbfaf5'%3E歌%3C/text%3E%3C/svg%3E">
 </head>
-<body>
+<body class="is-loading">
+
+  <!-- SVG 滤镜库：纸纹、墨染、金粉等共享滤镜 -->
+  <svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+    <defs>
+      <!-- 纸纹噪点滤镜：模拟宣纸纤维的不规则颗粒感 -->
+      <filter id="paper-grain-filter" x="0" y="0" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.35 0.25" numOctaves="4" stitchTiles="stitch" result="noise"/>
+        <feColorMatrix type="matrix" values="0.92 0 0 0 0.06  0.88 0 0 0 0.04  0.82 0 0 0 0.02  0 0 0 0.08 0" in="noise" result="colored"/>
+      </filter>
+      <!-- 墨染渗透滤镜：模拟墨滴在宣纸上的不规则扩散 -->
+      <filter id="ink-bleed-filter" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="3" stitchTiles="stitch" result="turbulence"/>
+        <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="0" xChannelSelector="R" yChannelSelector="G" result="displaced"/>
+        <feGaussianBlur in="displaced" stdDeviation="0" result="blurred"/>
+        <feColorMatrix in="blurred" type="matrix" values="0.05 0 0 0 0.05  0.03 0 0 0 0.03  0.02 0 0 0 0.02  0 0 0 0.9 0" result="ink-colored"/>
+      </filter>
+      <!-- 古金微光滤镜 -->
+      <filter id="gold-glimmer-filter" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" stitchTiles="stitch" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- 纸纹呼吸层：基于SVG噪点 + 微妙的透明度波动 -->
+  <div class="paper-grain" aria-hidden="true"></div>
+
+  <div class="ink-loader" aria-hidden="true">
+    <div class="ink-stage">
+      <div class="ink-orbit" aria-hidden="true">
+        <span class="ink-orbit-dot"></span>
+        <span class="ink-orbit-dot"></span>
+        <span class="ink-orbit-dot"></span>
+        <span class="ink-orbit-dot"></span>
+        <span class="ink-orbit-dot"></span>
+        <span class="ink-orbit-dot"></span>
+      </div>
+      <div class="ink-glow" aria-hidden="true"></div>
+      <div class="ink-core"></div>
+      <h1 class="ink-stage-title">歌以铸魂</h1>
+      <p class="ink-subtitle gold-shimmer">·弦歌声起·</p>
+      <div class="ink-poem-left" aria-hidden="true">弦歌声起<br>家国梦圆<br>经典咏传<br>少年志远</div>
+      <div class="ink-seal-corner" aria-hidden="true">传承</div>
+      <div class="ink-progress">
+        <div class="ink-progress-number" id="ink-progress-number">1%</div>
+        <div class="ink-progress-bar"></div>
+      </div>
+      <div class="ink-scroll-bar">
+        <div class="ink-scroll-line"></div>
+        <div class="ink-scroll-caption">展 开 一 首 中 国 风</div>
+      </div>
+    </div>
+  </div>
+
   <header class="site-header" id="top">
     <a class="brand" href="#home" aria-label="返回首页">
       <img src="assets/images/logo.png" alt="歌以铸魂项目标识">
-      <span>歌以铸魂</span>
+      <span>歌以<span class="gold-shimmer">铸魂</span></span>
     </a>
     <button class="nav-toggle" type="button" aria-label="展开导航" aria-expanded="false">
       <span></span>
@@ -28,8 +86,11 @@
 
   <main>
     <section class="hero section-panel" id="home" data-section>
+      <div class="section-title reveal">
+        <p class="eyebrow">卷首·绪</p>
+      </div>
       <div class="hero-frame">
-        <figure class="hero-banner reveal">
+        <figure class="hero-banner reveal-scroll is-preparing">
           <img src="assets/images/home-hero.jpg" alt="歌以铸魂：中国风流行音乐对青少年家国情怀建构机制与效果研究">
         </figure>
       </div>
@@ -45,22 +106,43 @@
         <article class="sketch-card reveal">
           <span class="card-index">02</span>
           <h2>核心数据展示</h2>
-          <div class="metric-strip">
-            <div><strong>201</strong><span>份有效问卷</span></div>
-            <div><strong>90+</strong><span>篇文献梳理</span></div>
-            <div><strong>100+</strong><span>首曲目统计</span></div>
-            <div><strong>5</strong><span>节项目微课</span></div>
+          <div class="data-orbit" style="--orbit-dur:80s;--n:3">
+            <div class="data-core" data-eyebrow="核" style="--x:50%;--y:50%"><b>5</b><span>节项目微课</span></div>
+            <div class="data-orbit-track" aria-hidden="true">
+              <div class="data-static-pos" style="--i:0">
+                <div class="data-static-content"><b>201</b><span>份有效问卷</span></div>
+              </div>
+              <div class="data-static-pos" style="--i:1">
+                <div class="data-static-content"><b>90+</b><span>篇文献</span></div>
+              </div>
+              <div class="data-static-pos" style="--i:2">
+                <div class="data-static-content"><b>100+</b><span>首曲目</span></div>
+              </div>
+            </div>
+            <div class="data-orbit-frame" aria-hidden="true"></div>
           </div>
         </article>
         <article class="sketch-card reveal">
           <span class="card-index">03</span>
           <h2>理论框架展示</h2>
           <div class="framework">
-            <span>情感共鸣</span>
-            <i></i>
-            <span>审美认同</span>
-            <i></i>
-            <span>理性认知</span>
+            <div class="framework-row">
+              <span class="framework-num">一</span>
+              <span class="framework-title">情感共鸣</span>
+              <span class="framework-desc">由旋律触发情绪</span>
+            </div>
+            <div class="framework-divider">↓</div>
+            <div class="framework-row">
+              <span class="framework-num">二</span>
+              <span class="framework-title">审美认同</span>
+              <span class="framework-desc">由国风审美形成认同</span>
+            </div>
+            <div class="framework-divider">↓</div>
+            <div class="framework-row">
+              <span class="framework-num">三</span>
+              <span class="framework-title">理性认知</span>
+              <span class="framework-desc">由知识理解转化为行动意愿</span>
+            </div>
           </div>
           <p>
             研究将作品文本、传播平台与青年受众置于同一链条中，归纳出由旋律触发情绪、由国风审美形成认同、由知识理解转化为行动意愿的递进路径。
@@ -71,7 +153,7 @@
 
     <section class="research section-panel" id="research" data-section>
       <div class="section-title reveal">
-        <p class="eyebrow">Research Outputs</p>
+        <p class="eyebrow">卷一·研</p>
         <h2>研究成果</h2>
         <p>围绕论文发表、学术竞赛成果与音乐教学教具专利，集中呈现项目阶段性研究与实践产出。</p>
       </div>
@@ -121,12 +203,22 @@
         <article class="result-card reveal">
           <h3>问卷与访谈</h3>
           <p>
-            综合分析报告包含 201 份有效问卷和多民族青年访谈材料。问卷显示，视频平台与音乐 App 是青少年接触中国风音乐的主要渠道，家国情怀量表整体均值达到较高水平。
+            综合分析报告包含 <span class="num-mark" data-count="201">201</span> 份有效问卷和多民族青年访谈材料。问卷显示，视频平台与音乐 App 是青少年接触中国风音乐的主要渠道，家国情怀量表整体均值达到较高水平。
           </p>
-          <div class="insight-grid">
-            <div><strong>80.1%</strong><span>通过视频平台接触</span></div>
-            <div><strong>77.61%</strong><span>通过音乐 App 接触</span></div>
-            <div><strong>4.74</strong><span>家国情怀量表均值</span></div>
+          <div class="data-orbit" style="--orbit-dur:90s;--n:3">
+            <div class="data-core" data-eyebrow="调" style="--x:50%;--y:50%"><b>201</b><span>份有效问卷</span></div>
+            <div class="data-orbit-track" aria-hidden="true">
+              <div class="data-static-pos" style="--i:0">
+                <div class="data-static-content"><b>80.1<span class="unit">%</span></b><span>视频平台</span></div>
+              </div>
+              <div class="data-static-pos" style="--i:1">
+                <div class="data-static-content"><b>77.61<span class="unit">%</span></b><span>音乐 App</span></div>
+              </div>
+              <div class="data-static-pos" style="--i:2">
+                <div class="data-static-content"><b>4.74</b><span>家国情怀均值</span></div>
+              </div>
+            </div>
+            <div class="data-orbit-frame" aria-hidden="true"></div>
           </div>
           <div class="link-row">
             <a href="assets/docs/survey-interview-report.docx" target="_blank" rel="noopener">综合分析报告</a>
@@ -136,12 +228,23 @@
 
         <article class="result-card reveal">
           <h3>代表曲目热度</h3>
-          <div class="bar-list" aria-label="代表曲目收藏量对比">
-            <div class="bar-row" style="--value:100"><span>少年中国说</span><b>734 万</b><i></i></div>
-            <div class="bar-row" style="--value:54"><span>竹石</span><b>400 万</b><i></i></div>
-            <div class="bar-row" style="--value:46"><span>真英雄</span><b>334 万</b><i></i></div>
-            <div class="bar-row" style="--value:30"><span>明日歌</span><b>220 万</b><i></i></div>
-            <div class="bar-row" style="--value:20"><span>将进酒</span><b>150 万</b><i></i></div>
+          <div class="data-orbit" style="--orbit-dur:100s;--n:4">
+            <div class="data-core" data-eyebrow="曲" style="--x:50%;--y:50%"><b>734<span class="unit">万</span></b><span>少年中国说</span></div>
+            <div class="data-orbit-track" aria-hidden="true">
+              <div class="data-static-pos" style="--i:0">
+                <div class="data-static-content"><b>400<span class="unit">万</span></b><span>竹石</span></div>
+              </div>
+              <div class="data-static-pos" style="--i:1">
+                <div class="data-static-content"><b>334<span class="unit">万</span></b><span>真英雄</span></div>
+              </div>
+              <div class="data-static-pos" style="--i:2">
+                <div class="data-static-content"><b>220<span class="unit">万</span></b><span>明日歌</span></div>
+              </div>
+              <div class="data-static-pos" style="--i:3">
+                <div class="data-static-content"><b>150<span class="unit">万</span></b><span>将进酒</span></div>
+              </div>
+            </div>
+            <div class="data-orbit-frame" aria-hidden="true"></div>
           </div>
           <a class="single-link" href="assets/data/song-popularity.xlsx" target="_blank" rel="noopener">下载热度统计表</a>
         </article>
@@ -161,7 +264,7 @@
 
     <section class="classroom section-panel" id="classroom" data-section>
       <div class="section-title reveal">
-        <p class="eyebrow">Micro Lessons</p>
+        <p class="eyebrow">卷二·课</p>
         <h2>微课堂</h2>
         <p>五个微课链接整合为可播放的视频展示区，内容与项目主题、研究结论和国风音乐赏析相互支撑。</p>
       </div>
@@ -197,8 +300,8 @@
 
         <article class="lesson-card reveal">
           <div class="lesson-media">
-            <video controls preload="metadata" poster="assets/images/lesson-4-poster.jpg">
-              <source src="assets/videos/lesson-4.mp4" type="video/mp4">
+            <video controls preload="metadata" poster="assets/images/lesson-4-poster.jpg?v=2">
+              <source src="assets/videos/lesson-4.mp4?v=2" type="video/mp4">
               当前浏览器不支持视频播放。
             </video>
           </div>
@@ -211,8 +314,8 @@
 
         <article class="lesson-card reveal">
           <div class="lesson-media">
-            <video controls preload="metadata" poster="assets/images/lesson-5-poster.jpg">
-              <source src="assets/videos/lesson-5.mp4" type="video/mp4">
+            <video controls preload="metadata" poster="assets/images/lesson-5-poster.jpg?v=2">
+              <source src="assets/videos/lesson-5.mp4?v=2" type="video/mp4">
               当前浏览器不支持视频播放。
             </video>
           </div>
@@ -225,8 +328,8 @@
 
         <article class="lesson-card reveal">
           <div class="lesson-media">
-            <video controls preload="metadata" poster="assets/images/lesson-1-poster.jpg">
-              <source src="assets/videos/lesson-1.mp4" type="video/mp4">
+            <video controls preload="metadata" poster="assets/images/lesson-1-poster.jpg?v=2">
+              <source src="assets/videos/lesson-1.mp4?v=2" type="video/mp4">
               当前浏览器不支持视频播放。
             </video>
           </div>
@@ -241,7 +344,7 @@
 
     <section class="team section-panel" id="team" data-section>
       <div class="section-title reveal">
-        <p class="eyebrow">Project Team</p>
+        <p class="eyebrow">卷三·人</p>
         <h2>团队介绍</h2>
         <p>呈现项目成员、指导教师与项目支持信息。</p>
       </div>
@@ -275,6 +378,11 @@
             <h3>耿悦</h3>
             <p>资料收集整理。</p>
           </article>
+          <article class="member-card reveal">
+            <span>06</span>
+            <h3>邓清伟</h3>
+            <p>网页的日常管理与维护。</p>
+          </article>
         </div>
 
         <aside class="advisor-card reveal">
@@ -292,12 +400,19 @@
   </main>
 
   <button class="back-top" type="button" aria-label="返回顶部">↑</button>
+  <button class="scroll-hint" type="button" aria-label="向下滚动查看更多">
+    <span>向下</span>
+    <span class="scroll-hint-arrow">↓</span>
+  </button>
 
-  <footer class="site-footer">
-    <p>歌以铸魂：“中国风”流行音乐对青少年家国情怀的建构机制与效果研究</p>
-    <p>西南民族大学 · 中国语言文学学院 · 大学生创新创业训练计划项目展示</p>
+  <footer class="site-footer" style="display:flex;flex-direction:column;align-items:center;text-align:center;width:min(880px, calc(100% - 36px));margin:54px auto 30px;">
+    <p style="text-align:center;width:100%;">歌以铸魂："中国风"流行音乐对青少年家国情怀的建构机制与效果研究</p>
+    <p style="text-align:center;width:100%;">西南民族大学 · 中国语言文学学院 · 大学生创新创业训练计划项目展示</p>
+    <div class="signature-seal-wrap" style="text-align:center;width:100%;">
+      <div class="signature-seal">铸魂 · 印</div>
+    </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=8"></script>
 </body>
 </html>

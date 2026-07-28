@@ -1,18 +1,19 @@
 :root {
-  --paper: #fbfaf5;
-  --paper-deep: #f2efe4;
-  --ink: #181511;
-  --ink-soft: #4d473f;
-  --line: #15120f;
-  --jade: #0f6a58;
-  --jade-deep: #064a3e;
-  --cinnabar: #b23a2c;
-  --lilac: #b8a7ff;
-  --lilac-soft: #eeeaff;
-  --gold: #d8a449;
-  --shadow: 0 18px 40px rgba(24, 21, 17, 0.11);
-  --radius: 8px;
-  --max: 1180px;
+  --paper: #E8F1F8;
+  --paper-rice: #F4F8FB;
+  --paper-deep: #D5E2EE;
+  --paper-tag: #E0EAF2;
+  --ink: #2E5A8A;
+  --ink-soft: #5A7DA3;
+  --line: #1F4060;
+  --bronze: #7BA0C2;
+  --bronze-deep: #3E6B95;
+  --cinnabar: #2E5A8A;
+  --gold: #5B8FBF;
+  --shadow-soft: 0 1px 0 rgba(46, 90, 138, 0.05), 0 18px 36px -16px rgba(46, 90, 138, 0.08);
+  --shadow: var(--shadow-soft);
+  --radius: 2px;
+  --max: 1200px;
 }
 
 * {
@@ -27,11 +28,11 @@ html {
 body {
   margin: 0;
   color: var(--ink);
-  background:
-    linear-gradient(90deg, rgba(15, 106, 88, 0.035) 1px, transparent 1px),
-    linear-gradient(0deg, rgba(24, 21, 17, 0.025) 1px, transparent 1px),
-    var(--paper);
-  background-size: 38px 38px, 38px 38px, auto;
+  background-color: var(--paper);
+  background-image: url("../assets/images/paper-texture-blue.jpg");
+  background-repeat: repeat;
+  background-size: 1200px 1200px;
+  background-attachment: fixed;
   font-family: "Noto Serif SC", "Source Han Serif SC", "Microsoft YaHei", SimSun, serif;
   line-height: 1.75;
   letter-spacing: 0;
@@ -63,7 +64,7 @@ textarea {
   justify-content: space-between;
   min-height: 76px;
   padding: 10px 34px;
-  border-bottom: 4px solid var(--line);
+  border-bottom: 1px solid rgba(26, 20, 16, 0.18);
   background: rgba(251, 250, 245, 0.95);
   backdrop-filter: blur(16px);
 }
@@ -79,10 +80,15 @@ textarea {
   width: 54px;
   height: 54px;
   object-fit: contain;
+  animation: brandGlow 3s ease-in-out infinite;
+}
+@keyframes brandGlow {
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(184, 137, 58, 0.3)); }
+  50% { filter: drop-shadow(0 0 20px rgba(184, 137, 58, 0.8)); }
 }
 
 .brand span {
-  font-family: KaiTi, STKaiti, "FangSong", serif;
+  font-family: "LXGW WenKai", "FZ清刻本悦宋", "Noto Serif SC", "Source Han Serif SC", "Microsoft YaHei", SimSun, serif;
   font-size: 2rem;
   font-weight: 700;
   white-space: nowrap;
@@ -92,7 +98,7 @@ textarea {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: KaiTi, STKaiti, "FangSong", serif;
+  font-family: "LXGW WenKai", "FZ清刻本悦宋", "Noto Serif SC", "Source Han Serif SC", "Microsoft YaHei", SimSun, serif;
   font-size: 1.25rem;
   font-weight: 700;
 }
@@ -105,7 +111,7 @@ textarea {
   min-width: 104px;
   height: 42px;
   padding: 0 16px;
-  border-left: 3px solid var(--line);
+  border-left: 1px solid rgba(26, 20, 16, 0.12);
 }
 
 .nav-link:first-child {
@@ -118,21 +124,23 @@ textarea {
   inset: 5px 10px;
   z-index: -1;
   border-radius: 999px;
-  background: transparent;
-  transform: rotate(-1deg);
-  transition: background 160ms ease;
+  background: radial-gradient(circle at center, var(--cinnabar) 0%, transparent 75%);
+  opacity: 0;
+  transform: rotate(-1deg) scale(0.6);
+  transition: opacity 420ms ease, transform 540ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .nav-link.active::before,
 .nav-link:hover::before {
-  background: var(--lilac);
+  opacity: 0.2;
+  transform: rotate(-1deg) scale(1.3);
 }
 
 .nav-toggle {
   display: none;
   width: 42px;
   height: 42px;
-  border: 3px solid var(--line);
+  border: 1px solid var(--line);
   border-radius: 6px;
   background: var(--paper);
   padding: 8px;
@@ -150,6 +158,33 @@ textarea {
   margin: 42px auto 0;
 }
 
+.section-panel + .section-panel::before {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 28px;
+  margin: 0 auto 36px;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56 28' fill='none' stroke='%23a83228' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M6 4 L28 24 L50 4'/%3E%3Cpath d='M28 6 L28 24'/%3E%3Cpath d='M14 4 L14 12 M42 4 L42 12' stroke-width='1'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.55;
+  position: relative;
+}
+
+.section-panel + .section-panel::after {
+  content: "翻 页";
+  display: block;
+  text-align: center;
+  font-family: "LXGW WenKai", "FZ清刻本悦宋", "Noto Serif SC", "Source Han Serif SC", "Microsoft YaHei", serif;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.6em;
+  text-indent: 0.6em;
+  margin-top: -8px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
 .hero {
   padding-top: 10px;
 }
@@ -157,38 +192,115 @@ textarea {
 .hero-frame {
   min-height: 0;
   padding: 24px;
-  border: 4px solid var(--line);
+  border: 1px solid rgba(26, 20, 16, 0.18);
   background:
     radial-gradient(circle at 18% 18%, rgba(216, 164, 73, 0.12), transparent 32%),
-    linear-gradient(135deg, rgba(15, 106, 88, 0.08), rgba(255, 255, 255, 0) 45%),
+    linear-gradient(135deg, rgba(90, 114, 86, 0.08), rgba(255, 255, 255, 0) 45%),
     rgba(255, 255, 255, 0.64);
   box-shadow: var(--shadow);
 }
 
 .hero-banner {
   margin: 0;
-  border: 3px solid rgba(24, 21, 17, 0.16);
+  border: 1px solid rgba(26, 20, 16, 0.12);
   border-radius: 6px;
   background: var(--paper);
   overflow: hidden;
+  position: relative;
+  isolation: isolate;
+  --py-far: 0px;
+  --py-near: 0px;
 }
 
 .hero-banner img {
   width: 100%;
   height: auto;
   object-fit: contain;
+  will-change: transform;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== 山水远近三层视差（Michael Smith 改造）=====
+   远山：淡墨双层山形，飘在图前，最慢 (scrollY * 0.06)
+   中景：home-hero.jpg，中速 (scrollY * 0.20)
+   近景：底部浓墨题款带，最快 (scrollY * 0.42)
+================================================ */
+.hero-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 200' preserveAspectRatio='none'%3E%3Cpath d='M0 200 L0 140 Q60 100 130 130 Q200 160 280 110 Q360 70 440 120 Q520 165 600 120 Q680 85 760 130 L800 140 L800 200 Z' fill='%236b7a6c' opacity='0.55'/%3E%3Cpath d='M0 200 L0 175 Q80 150 170 170 Q260 188 350 165 Q440 142 530 175 Q620 200 710 175 L800 180 L800 200 Z' fill='%231a1410' opacity='0.45'/%3E%3C/svg%3E") center bottom / 100% 42% no-repeat;
+  opacity: 0.2;
+  will-change: transform;
+  transform: translateY(var(--py-far, 0px));
+}
+
+.hero-banner::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 16%;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    linear-gradient(to right, transparent 0%, transparent 74%, rgba(184, 137, 58, 0.55) 74.5%, rgba(184, 137, 58, 0.55) 75.2%, transparent 76%),
+    linear-gradient(to top, rgba(26, 20, 16, 0.46) 0%, rgba(26, 20, 12, 0.18) 55%, transparent 100%);
+  will-change: transform;
+  transform: translateY(var(--py-near, 0px));
 }
 
 .eyebrow {
-  margin: 0 0 12px;
-  color: var(--cinnabar);
-  font-size: 0.92rem;
-  font-weight: 700;
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 0 0 28px;
+  background:
+    url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 0.92 0 0 0 0 0.85 0 0 0 0.18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    var(--cinnabar);
+  color: var(--paper-rice);
+  font-family: "LXGW WenKai", "FZ清刻本悦宋", "Noto Serif SC", "Source Han Serif SC", "Microsoft YaHei", serif;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.32em;
+  box-shadow:
+    inset 0 0 0 2px var(--cinnabar),
+    inset 0 0 0 3px rgba(250, 242, 221, 0.5),
+    inset 0 3px 14px rgba(70, 18, 12, 0.35),
+    0 2px 6px rgba(168, 50, 40, 0.25);
+  transform: rotate(-2deg);
+  transform-origin: left center;
+  text-indent: 0.32em;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.eyebrow:active {
+  transform: rotate(-1deg) scale(0.96);
+  box-shadow:
+    inset 0 0 0 2px var(--cinnabar),
+    inset 0 0 0 3px rgba(250, 242, 221, 0.5),
+    inset 0 6px 18px rgba(70, 18, 12, 0.55),
+    0 0 0 0 var(--cinnabar);
+}
+
+.eyebrow::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background:
+    url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.65 0 0 0 0 0.18 0 0 0 0 0.15 0 0 0 0.4 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+  pointer-events: none;
 }
 
 .hero h1 {
   margin: 0;
-  font-family: KaiTi, STKaiti, "FangSong", serif;
+  font-family: "LXGW WenKai", "FZ清刻本悦宋", "Noto Serif SC", "Source Han Serif SC", "Microsoft YaHei", SimSun, serif;
   font-size: 5rem;
   line-height: 1.08;
 }
@@ -221,7 +333,7 @@ textarea {
   justify-content: center;
   min-height: 46px;
   padding: 0 24px;
-  border: 3px solid var(--line);
+  border: 1px solid var(--line);
   border-radius: 6px;
   font-weight: 800;
   transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
@@ -229,16 +341,16 @@ textarea {
 
 .btn:hover {
   transform: translateY(-2px);
-  box-shadow: 6px 6px 0 var(--line);
+  box-shadow: 0 4px 14px rgba(26, 20, 16, 0.18);
 }
 
 .btn.primary {
   color: #fff;
-  background: var(--jade);
+  background: var(--bronze);
 }
 
 .btn.secondary {
-  background: var(--lilac-soft);
+  background: var(--paper-tag);
 }
 
 .hero-visual {
@@ -248,14 +360,14 @@ textarea {
 
 .hero-visual img {
   width: min(380px, 100%);
-  filter: drop-shadow(0 18px 30px rgba(15, 106, 88, 0.22));
+  filter: drop-shadow(0 18px 30px rgba(90, 114, 86, 0.22));
 }
 
 .home-grid {
   display: grid;
-  grid-template-columns: 0.92fr 1.35fr 0.92fr;
-  gap: 28px;
-  margin-top: 30px;
+  grid-template-columns: 1fr;
+  gap: 22px;
+  margin-top: 18px;
 }
 
 .sketch-card,
@@ -266,10 +378,10 @@ textarea {
 .member-card,
 .advisor-card {
   position: relative;
-  border: 4px solid var(--line);
+  border: 1px solid rgba(26, 20, 16, 0.22);
   border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.72);
-  box-shadow: 8px 8px 0 rgba(24, 21, 17, 0.08);
+  background: rgba(250, 242, 221, 0.78);
+  box-shadow: var(--shadow-soft);
 }
 
 .sketch-card {
@@ -278,16 +390,35 @@ textarea {
 }
 
 .card-index {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  border: 3px solid var(--line);
-  border-radius: 50%;
-  color: #fff;
-  background: var(--jade);
-  font-weight: 800;
+  display: inline-grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  background: var(--cinnabar);
+  color: var(--paper-rice);
+  font-family: "Ma Shan Zheng", "LXGW WenKai", serif;
+  font-size: 1.2rem;
+  font-weight: 900;
+  /* 朱印不规则边缘：clip-path 模拟破损 */
+  clip-path: polygon(
+    4% 2%, 22% 0%, 48% 3%, 74% 1%, 96% 4%,
+    99% 22%, 97% 48%, 100% 74%, 98% 96%,
+    76% 99%, 50% 97%, 24% 100%, 2% 97%,
+    0% 74%, 3% 50%, 1% 24%
+  );
+  box-shadow:
+    inset 0 0 0 1.5px var(--paper-rice),
+    inset 0 0 0 2.5px rgba(70, 18, 12, 0.4);
+  position: relative;
+  transform: rotate(-3deg);
+}
+.card-index::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='40'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.88 0 0 0 0 0.8 0 0 0 0.2 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+  pointer-events: none;
 }
 
 .sketch-card h2,
@@ -298,7 +429,7 @@ textarea {
 .member-card h3,
 .advisor-card h3 {
   margin: 18px 0 12px;
-  font-family: KaiTi, STKaiti, "FangSong", serif;
+  font-family: "LXGW WenKai", "FZ清刻本悦宋", "Noto Serif SC", "Source Han Serif SC", "Microsoft YaHei", SimSun, serif;
   font-size: 1.7rem;
   line-height: 1.25;
 }
@@ -312,6 +443,48 @@ textarea {
 .advisor-card p {
   margin: 0;
   color: var(--ink-soft);
+  line-height: 1.85;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.data-prose {
+  margin: 18px 0 0;
+  color: var(--ink);
+  font-size: 1.02rem;
+  line-height: 2;
+  text-align: justify;
+  text-justify: inter-character;
+}
+
+.num-mark {
+  display: inline-block;
+  margin: 0 2px;
+  padding: 0 4px 1px;
+  color: var(--cinnabar);
+  font-family: "LXGW WenKai", "FZ清刻本悦宋", "Noto Serif SC", "Source Han Serif SC", serif;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  border-bottom: 1.5px dashed var(--cinnabar);
+  position: relative;
+  transition: color 200ms ease;
+}
+
+.num-mark::before {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: calc(100% - 2px);
+  background: var(--cinnabar);
+  opacity: 0.4;
+}
+
+strong[data-count].counting,
+.num-mark.counting {
+  color: #6b1810;
 }
 
 .metric-strip {
@@ -324,7 +497,7 @@ textarea {
 .metric-strip div,
 .insight-grid div {
   padding: 15px;
-  border: 2px solid var(--line);
+  border: 1px solid rgba(26, 20, 16, 0.16);
   border-radius: 6px;
   background: var(--paper-deep);
 }
@@ -332,9 +505,18 @@ textarea {
 .metric-strip strong,
 .insight-grid strong {
   display: block;
-  color: var(--jade-deep);
+  color: var(--bronze-deep);
   font-size: 2rem;
   line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+strong[data-count] {
+  transition: color 200ms ease;
+}
+
+strong[data-count].counting {
+  color: var(--cinnabar);
 }
 
 .research-support-grid .insight-grid strong {
@@ -352,26 +534,44 @@ textarea {
 
 .framework {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  gap: 0;
   margin: 20px 0;
+  padding: 18px 22px;
+  border-left: 2px solid var(--cinnabar);
+  background: rgba(250, 242, 221, 0.4);
 }
-
-.framework span {
-  flex: 1;
-  min-width: 0;
-  padding: 10px 8px;
-  border: 2px solid var(--line);
-  border-radius: 999px;
-  background: var(--lilac-soft);
-  text-align: center;
+.framework-row {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  gap: 14px;
+  align-items: baseline;
+  padding: 10px 0;
+  border-bottom: 1px dashed rgba(26, 20, 16, 0.2);
+}
+.framework-row:last-child { border-bottom: 0; }
+.framework-num {
+  color: var(--cinnabar);
+  font-family: "Ma Shan Zheng", serif;
+  font-size: 1.4rem;
+  font-weight: 900;
+}
+.framework-title {
+  color: var(--ink);
   font-weight: 800;
+  font-size: 1.1rem;
 }
-
-.framework i {
-  width: 26px;
-  height: 2px;
-  background: var(--line);
+.framework-desc {
+  color: var(--ink-soft);
+  font-size: 0.88rem;
+  font-style: italic;
+}
+.framework-divider {
+  text-align: center;
+  color: var(--cinnabar);
+  opacity: 0.4;
+  font-size: 0.9rem;
+  padding: 2px 0;
 }
 
 .section-title {
@@ -381,9 +581,62 @@ textarea {
 
 .section-title h2 {
   margin: 0;
-  font-family: KaiTi, STKaiti, "FangSong", serif;
+  font-family: "LXGW WenKai", "FZ清刻本悦宋", "Noto Serif SC", "Source Han Serif SC", "Microsoft YaHei", SimSun, serif;
   font-size: 3.2rem;
   line-height: 1.16;
+  display: inline-block;
+  position: relative;
+  background: linear-gradient(90deg, var(--ink) 0%, var(--ink) 50%, transparent 50%, transparent 100%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  transition: background-position 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.section-title h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--cinnabar), var(--gold));
+  border-radius: 2px;
+  transition: width 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.4s;
+}
+
+.section-title.in-view h2 {
+  background-position: 0% 0;
+}
+
+.section-title.in-view h2::after {
+  width: 100%;
+}
+
+.section-title h2 {
+  filter: drop-shadow(0 1px 0 rgba(24, 21, 17, 0.12));
+}
+
+.brand span,
+.section-title h2,
+.member-name {
+  display: inline-block;
+  background: linear-gradient(90deg, var(--ink) 0%, var(--ink) 50%, transparent 50%, transparent 100%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  transition: background-position 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.brand.in-view span,
+.member-name.in-view {
+  background-position: 0% 0;
 }
 
 .section-title p:last-child {
@@ -443,7 +696,7 @@ textarea {
 
 .patent-name {
   margin: 0 0 14px;
-  color: var(--jade-deep);
+  color: var(--bronze-deep);
   font-size: 1.15rem;
   font-weight: 900;
 }
@@ -451,7 +704,7 @@ textarea {
 .certificate-frame {
   margin: 22px 0 0;
   padding: 12px;
-  border: 2px solid var(--line);
+  border: 1px solid rgba(26, 20, 16, 0.16);
   border-radius: 6px;
   background: var(--paper-deep);
 }
@@ -462,31 +715,106 @@ textarea {
 }
 
 .patent-gallery {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
+  position: relative;
+  overflow: hidden;
   margin-top: 22px;
+  /* 两端渐隐，强化无限循环的视觉 */
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 3%, #000 97%, transparent 100%);
+          mask-image: linear-gradient(to right, transparent 0, #000 3%, #000 97%, transparent 100%);
 }
 
-.patent-gallery a {
+.patent-track {
+  display: flex;
+  gap: 14px;
+  width: max-content;
+  --scroll-dur: 42s;
+  animation: patentScroll var(--scroll-dur) linear infinite;
+}
+.patent-gallery:hover .patent-track {
+  --scroll-dur: 88s;
+}
+.patent-track.is-paused {
+  animation-play-state: paused;
+}
+
+.patent-track a {
+  flex: 0 0 220px;
   display: block;
   padding: 8px;
-  border: 2px solid var(--line);
+  border: 1px solid rgba(26, 20, 16, 0.16);
   border-radius: 6px;
   background: #fff;
-  transition: transform 160ms ease, box-shadow 160ms ease;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+.patent-track a:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(26, 20, 16, 0.14);
+  border-color: var(--cinnabar);
 }
 
-.patent-gallery a:hover {
-  transform: translateY(-2px);
-  box-shadow: 5px 5px 0 rgba(24, 21, 17, 0.18);
-}
-
-.patent-gallery img {
+.patent-track img {
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: contain;
   background: #fff;
+}
+
+@keyframes patentScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ===== 专利图灯箱 ===== */
+.patent-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: 28px;
+  background: rgba(26, 20, 16, 0.88);
+  cursor: zoom-out;
+  opacity: 0;
+  transition: opacity 260ms ease;
+}
+.patent-lightbox.is-open {
+  opacity: 1;
+}
+.patent-lightbox img {
+  max-width: 92vw;
+  max-height: 86vh;
+  object-fit: contain;
+  border: 1px solid rgba(184, 137, 58, 0.45);
+  background: var(--paper);
+  box-shadow: 0 16px 56px rgba(0, 0, 0, 0.55);
+  transform: scale(0.94);
+  transition: transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: default;
+}
+.patent-lightbox.is-open img {
+  transform: scale(1);
+}
+.patent-lightbox-close {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  border: 1px solid rgba(250, 242, 221, 0.4);
+  border-radius: 50%;
+  color: var(--paper-rice);
+  font-family: "LXGW WenKai", "Noto Serif SC", serif;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 180ms ease, border-color 180ms ease;
+}
+.patent-lightbox-close:hover {
+  background: rgba(250, 242, 221, 0.12);
+  border-color: rgba(250, 242, 221, 0.7);
 }
 
 .link-row {
@@ -502,11 +830,14 @@ textarea {
   align-items: center;
   min-height: 38px;
   padding: 0 14px;
-  border: 2px solid var(--line);
+  border: 1px solid rgba(26, 20, 16, 0.16);
   border-radius: 6px;
-  background: #fff;
-  color: var(--jade-deep);
+  background:
+    radial-gradient(circle at center, rgba(168, 50, 40, 0.32) 0%, transparent 70%) center / 0% 0% no-repeat,
+    #fff;
+  color: var(--bronze-deep);
   font-weight: 800;
+  transition: color 320ms ease, background-size 540ms cubic-bezier(0.22, 1, 0.36, 1), transform 180ms ease;
 }
 
 .single-link {
@@ -515,7 +846,13 @@ textarea {
 
 .link-row a:hover,
 .single-link:hover {
-  background: var(--lilac-soft);
+  color: var(--cinnabar);
+  background-size: 240% 240%;
+}
+
+.link-row a:active,
+.single-link:active {
+  transform: scale(0.97);
 }
 
 .insight-grid {
@@ -547,7 +884,7 @@ textarea {
 .bar-row i {
   position: relative;
   height: 14px;
-  border: 2px solid var(--line);
+  border: 1px solid rgba(26, 20, 16, 0.16);
   border-radius: 999px;
   background: #fff;
   overflow: hidden;
@@ -557,9 +894,20 @@ textarea {
   content: "";
   position: absolute;
   inset: 0 auto 0 0;
-  width: calc(var(--value) * 1%);
-  background: linear-gradient(90deg, var(--jade), var(--gold));
+  width: 0;
+  background: linear-gradient(90deg, var(--bronze), var(--gold));
+  transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+.result-card.in-view .bar-row i::before {
+  width: calc(var(--value) * 1%);
+}
+
+.bar-row:nth-child(1) i::before { transition-delay: 0.2s; }
+.bar-row:nth-child(2) i::before { transition-delay: 0.35s; }
+.bar-row:nth-child(3) i::before { transition-delay: 0.5s; }
+.bar-row:nth-child(4) i::before { transition-delay: 0.65s; }
+.bar-row:nth-child(5) i::before { transition-delay: 0.8s; }
 
 .lesson-grid {
   display: grid;
@@ -597,10 +945,10 @@ textarea {
 .lesson-body span {
   display: inline-flex;
   padding: 4px 10px;
-  border: 2px solid var(--line);
+  border: 1px solid rgba(26, 20, 16, 0.16);
   border-radius: 999px;
-  color: var(--jade-deep);
-  background: var(--lilac-soft);
+  color: var(--bronze-deep);
+  background: var(--paper-tag);
   font-weight: 800;
 }
 
@@ -615,13 +963,13 @@ textarea {
 .advisor-card {
   padding: 30px;
   background:
-    linear-gradient(180deg, rgba(15, 106, 88, 0.09), rgba(255, 255, 255, 0.6)),
+    linear-gradient(180deg, rgba(90, 114, 86, 0.09), rgba(255, 255, 255, 0.6)),
     #fff;
 }
 
 .member-name {
-  color: var(--jade-deep);
-  font-family: KaiTi, STKaiti, "FangSong", serif;
+  color: var(--bronze-deep);
+  font-family: "LXGW WenKai", "FZ清刻本悦宋", "Noto Serif SC", "Source Han Serif SC", "Microsoft YaHei", SimSun, serif;
   font-size: 2rem;
   font-weight: 800;
 }
@@ -654,7 +1002,7 @@ textarea {
 
 .advisor-card div {
   padding: 14px;
-  border: 2px solid var(--line);
+  border: 1px solid rgba(26, 20, 16, 0.16);
   border-radius: 6px;
   background: var(--paper);
 }
@@ -678,10 +1026,10 @@ textarea {
   place-items: center;
   width: 46px;
   height: 46px;
-  border: 3px solid var(--line);
+  border: 1px solid var(--line);
   border-radius: 50%;
   color: #fff;
-  background: var(--jade);
+  background: var(--bronze);
   font-size: 1.25rem;
   font-weight: 900;
   cursor: pointer;
@@ -697,29 +1045,152 @@ textarea {
   transform: translateY(0);
 }
 
+.scroll-hint {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 35;
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  border: 1px solid rgba(26, 20, 16, 0.16);
+  border-radius: 50%;
+  background: rgba(251, 250, 245, 0.94);
+  color: var(--bronze-deep);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  text-align: center;
+  line-height: 1.1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 240ms ease;
+}
+
+.scroll-hint.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.scroll-hint-arrow {
+  display: block;
+  margin-top: 2px;
+  font-size: 1.1rem;
+  animation: scrollHintBounce 1.6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+@keyframes scrollHintBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(4px); opacity: 1; }
+}
+
 .site-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: min(var(--max), calc(100% - 36px));
   margin: 54px auto 30px;
   padding: 24px 0 0;
-  border-top: 4px solid var(--line);
+  border-top: 1px solid rgba(26, 20, 16, 0.18);
   color: var(--ink-soft);
   text-align: center;
 }
 
 .site-footer p {
   margin: 4px 0;
+  text-align: center;
+  max-width: 100%;
+  word-break: break-word;
+}
+
+.signature-seal-wrap {
+  text-align: center;
+  margin-top: 8px;
+  width: 100%;
+}
+
+.signature-seal {
+  display: inline-block;
+  margin: 0;
+  padding: 4px 12px;
+  background: var(--cinnabar);
+  color: var(--paper-rice);
+  font-family: "LXGW WenKai", "FZ清刻本悦宋", "Noto Serif SC", "Source Han Serif SC", "Microsoft YaHei", serif;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.32em;
+  text-indent: 0.32em;
+  transform: rotate(-3deg);
+  box-shadow:
+    inset 0 0 0 1.5px var(--cinnabar),
+    inset 0 0 0 2.5px rgba(250, 242, 221, 0.5),
+    inset 0 2px 8px rgba(70, 18, 12, 0.3);
+  position: relative;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  cursor: pointer;
+}
+
+.signature-seal:active {
+  transform: rotate(-2deg) scale(0.94);
+  box-shadow:
+    inset 0 0 0 1.5px var(--cinnabar),
+    inset 0 0 0 2.5px rgba(250, 242, 221, 0.5),
+    inset 0 5px 14px rgba(70, 18, 12, 0.55),
+    0 0 0 0 var(--cinnabar);
+}
+
+.signature-seal::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='40'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.88 0 0 0 0 0.8 0 0 0 0.2 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+  pointer-events: none;
 }
 
 .reveal {
   opacity: 1;
-  transform: translateY(0);
-  transition: opacity 220ms ease, transform 220ms ease;
+  transform: perspective(1200px) rotateY(0) translateY(0);
+  transition: opacity 720ms cubic-bezier(0.22, 1, 0.36, 1),
+              transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: left center;
+}
+
+.reveal.is-preparing {
+  opacity: 0;
+  transform: perspective(1200px) rotateY(-12deg) translateX(-24px);
 }
 
 .reveal.in-view {
   opacity: 1;
-  transform: translateY(0);
+  transform: perspective(1200px) rotateY(0) translateY(0);
 }
+
+/* 错开出现的节奏 */
+.home-grid .reveal:nth-child(1) { transition-delay: 0ms; }
+.home-grid .reveal:nth-child(2) { transition-delay: 140ms; }
+.home-grid .reveal:nth-child(3) { transition-delay: 280ms; }
+
+.research-results-grid .reveal:nth-child(1) { transition-delay: 0ms; }
+.research-results-grid .reveal:nth-child(2) { transition-delay: 140ms; }
+.research-results-grid .reveal:nth-child(3) { transition-delay: 280ms; }
+
+.research-support-grid .reveal:nth-child(1) { transition-delay: 0ms; }
+.research-support-grid .reveal:nth-child(2) { transition-delay: 140ms; }
+.research-support-grid .reveal:nth-child(3) { transition-delay: 280ms; }
+
+.lesson-grid .reveal:nth-child(1) { transition-delay: 0ms; }
+.lesson-grid .reveal:nth-child(2) { transition-delay: 130ms; }
+.lesson-grid .reveal:nth-child(3) { transition-delay: 260ms; }
+.lesson-grid .reveal:nth-child(4) { transition-delay: 390ms; }
+.lesson-grid .reveal:nth-child(5) { transition-delay: 520ms; }
+
+.member-grid .reveal:nth-child(1) { transition-delay: 0ms; }
+.member-grid .reveal:nth-child(2) { transition-delay: 130ms; }
+.member-grid .reveal:nth-child(3) { transition-delay: 260ms; }
+.member-grid .reveal:nth-child(4) { transition-delay: 390ms; }
 
 @media (max-width: 980px) {
   .site-header {
@@ -750,7 +1221,7 @@ textarea {
     align-items: stretch;
     gap: 0;
     padding: 8px 18px 18px;
-    border-bottom: 4px solid var(--line);
+    border-bottom: 1px solid rgba(26, 20, 16, 0.18);
     background: var(--paper);
   }
 
@@ -762,7 +1233,7 @@ textarea {
     justify-content: flex-start;
     width: 100%;
     border-left: 0;
-    border-top: 2px solid var(--line);
+    border-top: 1px solid rgba(26, 20, 16, 0.12);
   }
 
   .nav-link:first-child {
@@ -877,4 +1348,879 @@ textarea {
   .lesson-body {
     padding: 20px;
   }
+}
+
+/* ===== 模块 1：水墨晕染开屏（载入动画） ===== */
+:root {
+  --paper-aged: #E0EAF2;
+  --paper-vellum: #C5D9E8;
+  --ink-deep: #1F4060;
+  --ink-shadow: rgba(46, 90, 138, 0.12);
+  --seal-red: #2E5A8A;
+  --gold-thread: #5B8FBF;
+}
+
+.ink-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(ellipse at center, var(--paper-vellum) 0%, var(--paper-aged) 70%),
+    var(--paper-aged);
+  overflow: hidden;
+  transition: opacity 600ms ease;
+}
+
+body.is-loading main,
+body.is-loading .site-header,
+body.is-loading .site-footer {
+  visibility: hidden;
+}
+
+body:not(.is-loading) .ink-loader {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ink-loader::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 25% 30%, rgba(46, 90, 138, 0.04) 0%, transparent 30%),
+    radial-gradient(circle at 75% 70%, rgba(168, 50, 40, 0.03) 0%, transparent 30%);
+  pointer-events: none;
+}
+
+.ink-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.ink-core {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(46, 90, 138, 0.95) 0%,
+    rgba(46, 90, 138, 0.6) 35%,
+    rgba(46, 90, 138, 0.2) 65%,
+    rgba(46, 90, 138, 0) 100%
+  );
+  filter: blur(40px);
+  opacity: 0;
+  animation:
+    inkBloom 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    inkAbsorb 0.8s cubic-bezier(0.7, 0, 0.84, 0) 3.5s forwards;
+}
+
+.ink-stage-title {
+  position: relative;
+  font-family: "Ma Shan Zheng", "LXGW WenKai", "FZ清刻本悦宋", "STZhongsong", "STSong", "Microsoft YaHei", serif;
+  font-size: 5rem;
+  font-weight: 900;
+  color: var(--ink-deep);
+  letter-spacing: 0.3em;
+  padding-left: 0.3em;
+  -webkit-text-stroke: 1.5px var(--ink-deep);
+  paint-order: stroke fill;
+  text-shadow:
+    0 0 60px rgba(245, 239, 225, 1),
+    0 4px 0 rgba(245, 239, 225, 0.9),
+    0 8px 24px rgba(46, 90, 138, 0.4);
+  opacity: 0;
+  transform: scale(0.7);
+  z-index: 2;
+  animation:
+    titleFadeIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards,
+    titleExpand 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards,
+    titleFadeOut 0.6s ease 3.5s forwards;
+}
+
+.ink-subtitle {
+  position: relative;
+  z-index: 2;
+  margin-top: 18px;
+  font-family: "LXGW WenKai", "FZ清刻本悦宋", "Noto Serif SC", "Source Han Serif SC", "Microsoft YaHei", SimSun, serif;
+  font-size: 1rem;
+  color: var(--seal-red);
+  letter-spacing: 0.4em;
+  font-weight: 700;
+  opacity: 0;
+  animation:
+    titleFadeIn 0.8s ease 0.7s forwards,
+    titleFadeOut 0.5s ease 3.5s forwards;
+}
+
+.ink-poem-left {
+  position: absolute;
+  top: 14%;
+  left: 6%;
+  writing-mode: vertical-rl;
+  font-family: "LXGW WenKai", "FZ清刻本悦宋", "Noto Serif SC", "Source Han Serif SC", "Microsoft YaHei", SimSun, serif;
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: var(--ink-deep);
+  letter-spacing: 0.3em;
+  opacity: 0;
+  transform: translateX(-30px);
+  z-index: 3;
+  animation:
+    poemIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards,
+    poemOut 0.6s ease 3.5s forwards;
+}
+
+.ink-seal-corner {
+  position: absolute;
+  bottom: 18%;
+  right: 7%;
+  width: 80px;
+  height: 80px;
+  border: 3px solid var(--seal-red);
+  background: var(--seal-red);
+  color: var(--paper-aged);
+  display: grid;
+  place-items: center;
+  font-family: "Ma Shan Zheng", "LXGW WenKai", "STZhongsong", serif;
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  box-shadow: 0 0 0 2px var(--paper-aged) inset;
+  opacity: 0;
+  transform: translate(40px, 40px) scale(2) rotate(-15deg);
+  z-index: 3;
+  animation:
+    sealIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s forwards,
+    sealOut 0.5s ease 3.5s forwards;
+}
+
+.ink-seal-corner::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1.5px solid rgba(245, 239, 225, 0.7);
+}
+
+.ink-orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  z-index: 1;
+  animation: orbitSpin 32s linear infinite, titleFadeOut 0.5s ease 3.5s forwards;
+}
+
+.ink-orbit-dot {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(46, 90, 138, 0.7), rgba(46, 90, 138, 0));
+  filter: blur(2px);
+  animation: orbitPulse 3s ease-in-out infinite;
+}
+
+.ink-orbit-dot:nth-child(1) { transform: rotate(0deg) translateX(260px); }
+.ink-orbit-dot:nth-child(2) { transform: rotate(60deg) translateX(260px); animation-delay: 0.4s; }
+.ink-orbit-dot:nth-child(3) { transform: rotate(120deg) translateX(260px); animation-delay: 0.8s; }
+.ink-orbit-dot:nth-child(4) { transform: rotate(180deg) translateX(260px); animation-delay: 1.2s; }
+.ink-orbit-dot:nth-child(5) { transform: rotate(240deg) translateX(260px); animation-delay: 1.6s; }
+.ink-orbit-dot:nth-child(6) { transform: rotate(300deg) translateX(260px); animation-delay: 2s; }
+
+.ink-scroll-bar {
+  position: absolute;
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 3;
+}
+
+.ink-scroll-line {
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--ink-deep), transparent);
+  animation:
+    scrollLineExpand 1.2s cubic-bezier(0.22, 1, 0.36, 1) 1s forwards,
+    titleFadeOut 0.5s ease 3.5s forwards;
+}
+
+.ink-scroll-caption {
+  font-family: "LXGW WenKai", "FZ清刻本悦宋", "Noto Serif SC", "Source Han Serif SC", "Microsoft YaHei", SimSun, serif;
+  font-size: 0.78rem;
+  color: var(--ink-deep);
+  letter-spacing: 0.4em;
+  padding-left: 0.4em;
+  opacity: 0;
+  animation:
+    titleFadeIn 0.6s ease 1.4s forwards,
+    titleFadeOut 0.5s ease 3.5s forwards;
+}
+
+.ink-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, rgba(184, 137, 58, 0.5) 0%, transparent 70%);
+  filter: blur(40px);
+  border-radius: 50%;
+  z-index: 1;
+  animation:
+    inkBloom 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    glowPulse 2.4s ease-in-out 1.5s infinite,
+    inkAbsorb 0.7s cubic-bezier(0.7, 0, 0.84, 0) 3.5s forwards;
+}
+
+@keyframes poemIn {
+  to { opacity: 0.85; transform: translateX(0); }
+}
+@keyframes poemOut {
+  to { opacity: 0; transform: translateX(-30px); }
+}
+@keyframes sealIn {
+  to { opacity: 1; transform: translate(0, 0) scale(1) rotate(-3deg); }
+}
+@keyframes sealOut {
+  to { opacity: 0; transform: translate(40px, 40px) scale(0.6) rotate(10deg); }
+}
+@keyframes orbitSpin {
+  to { transform: rotate(360deg); }
+}
+@keyframes orbitPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+@keyframes scrollLineExpand {
+  to { width: 260px; }
+}
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.15); }
+}
+
+.ink-progress {
+  position: absolute;
+  bottom: 14%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  z-index: 3;
+}
+
+.ink-progress-number {
+  font-family: "LXGW WenKai", "Noto Serif SC", "Source Han Serif SC", serif;
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--ink-deep);
+  letter-spacing: 0.12em;
+  font-variant-numeric: tabular-nums;
+  opacity: 0;
+  animation: titleFadeIn 0.6s ease 0.8s forwards, titleFadeOut 0.5s ease 2s forwards;
+}
+
+.ink-progress-bar {
+  width: 220px;
+  height: 2px;
+  background: rgba(46, 90, 138, 0.12);
+  overflow: hidden;
+  position: relative;
+  opacity: 0;
+  animation: titleFadeIn 0.6s ease 0.8s forwards;
+}
+
+.ink-progress-bar::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0;
+  background: linear-gradient(90deg, var(--ink-deep), var(--seal-red));
+  animation: progressFill 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.8s forwards;
+}
+
+@keyframes inkBloom {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    filter: blur(60px);
+  }
+  40% {
+    opacity: 0.85;
+    filter: blur(50px);
+  }
+  100% {
+    width: 460px;
+    height: 460px;
+    margin: -230px 0 0 -230px;
+    opacity: 0.7;
+    filter: blur(70px);
+  }
+}
+
+@keyframes inkAbsorb {
+  0% {
+    width: 460px;
+    height: 460px;
+    margin: -230px 0 0 -230px;
+    opacity: 0.7;
+    filter: blur(70px);
+  }
+  100% {
+    width: 0;
+    height: 0;
+    margin: 0;
+    opacity: 0;
+    filter: blur(120px);
+  }
+}
+
+@keyframes titleFadeIn {
+  to { opacity: 1; }
+}
+
+@keyframes titleFadeOut {
+  to { opacity: 0; }
+}
+
+@keyframes titleExpand {
+  to { transform: scale(1); }
+}
+
+@keyframes progressFill {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* ===== 模块 2：宣纸纤维呼吸（持续运行）===== */
+.paper-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 25% 30%, rgba(168, 50, 40, 0.10) 0%, transparent 55%),
+    radial-gradient(ellipse at 75% 70%, rgba(90, 114, 86, 0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 50%, rgba(184, 137, 58, 0.06) 0%, transparent 65%);
+  animation: grainBreathe 8s ease-in-out infinite;
+}
+
+@keyframes grainBreathe {
+  0%, 100% { opacity: 0.3; }
+  30%  { opacity: 1.0; }
+  60%  { opacity: 0.5; }
+}
+
+/* ===== 模块 3：金粉流光 — 改造自 Aura shiny text ===== */
+.gold-shimmer {
+  display: inline-block;
+  background: linear-gradient(
+    105deg,
+    var(--gold) 0%,
+    #d4b56c 18%,
+    #f5e6b8 32%,
+    var(--gold) 48%,
+    #a17a30 62%,
+    #d4b56c 82%,
+    var(--gold) 100%
+  );
+  background-size: 240% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: goldFlow 12s linear infinite;
+}
+
+@keyframes goldFlow {
+  0% { background-position: 240% 0; }
+  100% { background-position: -120% 0; }
+}
+
+/* 只在页面可见时运行金粉动画，节省资源 */
+.gold-shimmer.paused {
+  animation-play-state: paused;
+}
+
+/* ===== 模块 4：雕版逐字着墨 — 改造自 NHM letterBlock ===== */
+.section-title h2 {
+  /* 重置 h2 原有的渐变揭示动画，改用逐字着墨 */
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  color: var(--ink);
+  -webkit-text-fill-color: currentColor;
+  filter: drop-shadow(0 1px 0 rgba(24, 21, 17, 0.12));
+}
+
+/* h2 下划线保留 */
+.section-title.in-view h2::after {
+  width: 100%;
+}
+
+.char-woodblock {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(3px);
+  transform: translateY(0.5em) scale(0.94);
+  transition:
+    opacity 0.55s cubic-bezier(0.3, 1, 0.4, 1),
+    filter 0.55s cubic-bezier(0.3, 1, 0.4, 1),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  /* 初始状态：墨未落纸 — 模糊、半透明、略微偏移 */
+}
+
+.section-title.in-view .char-woodblock {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0) scale(1);
+}
+
+/* 随机微延迟由 JS 设置 inline style，模拟手工刷墨的不均匀性 */
+
+/* ===== 模块 5：墨韵渐显 — 改造自 ASME BlurText ===== */
+.blur-reveal-text {
+  opacity: 0.35;
+  filter: blur(6px);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.blur-reveal-text.in-view {
+  opacity: 1;
+  filter: blur(0);
+}
+
+/* ===== 模块 6：卷轴展读 — 改造自 Mindloop clip-path reveal ===== */
+.reveal-scroll {
+  opacity: 1;
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 1.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-scroll.is-preparing {
+  clip-path: inset(0 100% 0 0);
+}
+
+.reveal-scroll.in-view {
+  clip-path: inset(0 0 0 0);
+}
+
+/* 卷轴展开时的暖色光感：展开瞬间的 sepia 微偏 */
+.reveal-scroll.is-unfurling {
+  filter: sepia(0.12) brightness(1.04);
+  transition:
+    clip-path 1.1s cubic-bezier(0.4, 0, 0.2, 1),
+    filter 1.4s ease 0.2s;
+}
+
+.reveal-scroll.in-view {
+  filter: sepia(0) brightness(1);
+}
+
+/* 交错延迟：模拟多卷竹简逐卷展开 */
+.reveal-scroll:nth-child(1) { transition-delay: 0ms; }
+.reveal-scroll:nth-child(2) { transition-delay: 120ms; }
+.reveal-scroll:nth-child(3) { transition-delay: 240ms; }
+.reveal-scroll:nth-child(4) { transition-delay: 360ms; }
+.reveal-scroll:nth-child(5) { transition-delay: 480ms; }
+
+/* ===== 模块 7：朱印呼吸 — 印章微动效 ===== */
+.eyebrow,
+.card-index,
+.signature-seal {
+  animation: sealBreathe 6s ease-in-out infinite;
+  transition:
+    transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 280ms ease,
+    filter 280ms ease;
+}
+
+/* hover 时印章微微浮起，墨色加深 */
+.eyebrow:hover,
+.card-index:hover,
+.signature-seal:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.08) contrast(1.05);
+  box-shadow:
+    inset 0 0 0 2px var(--cinnabar),
+    inset 0 0 0 3px rgba(250, 242, 221, 0.5),
+    inset 0 4px 16px rgba(70, 18, 12, 0.45),
+    0 6px 18px rgba(168, 50, 40, 0.3) !important;
+}
+
+/* 点击时印章盖下 */
+.eyebrow:active,
+.card-index:active,
+.signature-seal:active {
+  transform: scale(0.93);
+  filter: brightness(0.95) contrast(1.1);
+  transition: transform 120ms ease, filter 120ms ease;
+}
+
+/* 各印章独立的动画延迟，避免同步 */
+.card-index { animation-delay: -1.2s; }
+.signature-seal { animation-delay: -3.5s; }
+
+@keyframes sealBreathe {
+  0%, 100% { filter: brightness(1) contrast(1) saturate(1); }
+  30% { filter: brightness(1.14) contrast(1.1) saturate(1.35); }
+  60% { filter: brightness(0.85) contrast(0.9) saturate(0.75); }
+}
+
+/* ===== 模块 8：经折翻页 — 卡片hover古籍折页3D效果 ===== */
+.sketch-card,
+.paper-card,
+.result-card,
+.lesson-card,
+.member-card,
+.advisor-card {
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: left center;
+  transform: perspective(800px) rotateY(0);
+}
+
+/* hover 时卡片像经折装书页一样微微翻起 */
+.sketch-card:hover,
+.paper-card:hover,
+.result-card:hover,
+.lesson-card:hover,
+.member-card:hover,
+.advisor-card:hover {
+  transform: perspective(800px) rotateY(-2.5deg) translateX(4px);
+  box-shadow:
+    1px 0 0 rgba(26, 20, 16, 0.08),
+    4px 4px 20px rgba(26, 20, 16, 0.12),
+    8px 8px 32px rgba(26, 20, 16, 0.06);
+}
+
+/* 折缝阴影：hover时在左边缘出现细线，模拟经折装的折痕 */
+.sketch-card::after,
+.paper-card::after,
+.result-card::after,
+.lesson-card::after,
+.member-card::after,
+.advisor-card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(
+    to right,
+    rgba(26, 20, 16, 0.15),
+    rgba(26, 20, 16, 0.04) 60%,
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.sketch-card:hover::after,
+.paper-card:hover::after,
+.result-card:hover::after,
+.lesson-card:hover::after,
+.member-card:hover::after,
+.advisor-card:hover::after {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-core,
+  .ink-stage-title,
+  .ink-progress-number,
+  .ink-progress-bar::before {
+    animation-duration: 1ms !important;
+  }
+}
+
+/* ===== 数据气泡图 v2（参考气泡图：1 卫星圆周 + 多静态小圆散落大圆内）=====
+   朝向修复：track 不再自旋，satellite 自身 R(θ)·T + inner R(-θ) 抵消
+            → inner 相对世界恒为 R(0)，文字始终朝上
+   字号+艺术字：static b 1.45rem / core b 2rem (Ma Shan Zheng 毛笔) / satellite 0.95rem
+   减留白：4 角朱点 + 顶底金线 + padding 6→2
+================================================ */
+.data-orbit {
+  position: relative;
+  width: 440px;
+  max-width: 100%;
+  height: 440px;
+  margin: 26px auto 18px;
+  --orbit-dur: 44s;
+  --orbit-radius: 170px;
+  --sat-size: 80px;
+}
+/* 大圆 dashed 朱砂边 */
+.data-orbit::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1.5px dashed var(--cinnabar);
+  border-radius: 50%;
+  opacity: 0.42;
+  pointer-events: none;
+  z-index: 1;
+}
+/* 4 角朱砂小点 — 与 .eyebrow / .card-index 朱印同色 */
+.data-orbit::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle 3.5px at 12px 12px, var(--cinnabar) 0 78%, transparent 80%),
+    radial-gradient(circle 3.5px at calc(100% - 12px) 12px, var(--cinnabar) 0 78%, transparent 80%),
+    radial-gradient(circle 3.5px at 12px calc(100% - 12px), var(--cinnabar) 0 78%, transparent 80%),
+    radial-gradient(circle 3.5px at calc(100% - 12px) calc(100% - 12px), var(--cinnabar) 0 78%, transparent 80%);
+  opacity: 0.55;
+  z-index: 4;
+  mix-blend-mode: multiply;
+}
+/* 顶/底古金细线题款 */
+.data-orbit .data-orbit-frame {
+  position: absolute;
+  inset: 14px 0;
+  pointer-events: none;
+  z-index: 4;
+}
+.data-orbit .data-orbit-frame::before,
+.data-orbit .data-orbit-frame::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 64px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold) 50%, transparent);
+  transform: translateX(-50%);
+}
+.data-orbit .data-orbit-frame::before { top: 0; }
+.data-orbit .data-orbit-frame::after  { bottom: 0; opacity: 0.7; }
+
+/* 静态小圆与核心圆基础 */
+.data-orbit .data-static,
+.data-orbit .data-core {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 280ms ease,
+              border-color 280ms ease;
+  z-index: 2;
+}
+.data-orbit .data-static {
+  width: 102px; height: 102px;
+  padding: 2px;
+  border: 1px dashed rgba(26, 20, 16, 0.34);
+  background: rgba(244, 236, 216, 0.5);  /* 0.78→0.5：减少遮挡 core 文字 */
+  z-index: 1;  /* 2→1：在 core 之下，避免 AABB 重叠区遮挡 core 文字 */
+}
+.data-orbit .data-static:hover {
+  transform: translate(-50%, -50%) scale(1.05);
+  box-shadow: 0 4px 14px rgba(26, 20, 16, 0.1);
+  border-color: var(--cinnabar);
+}
+.data-orbit .data-core {
+  width: 130px; height: 130px;
+  padding: 2px;
+  border: 1.5px solid var(--cinnabar);
+  background: var(--paper);
+  box-shadow: 0 4px 18px rgba(168, 50, 40, 0.12);
+}
+/* --x/--y 定位（translate 已补偿） */
+.data-orbit [style*="--x"] {
+  left: var(--x, 50%);
+  top: var(--y, 50%);
+}
+/* 数字与标签：Noto Serif SC 思源宋体（碑刻/古籍统计感）*/
+.data-orbit .data-static b,
+.data-orbit .data-core b {
+  display: block;
+  font-family: "Noto Serif SC", "LXGW WenKai", "FZ清刻本悦宋", "Source Han Serif SC", "STZhongsong", "STSong", SimSun, serif;
+  font-size: 1.6rem;            /* ↑ from 1.45rem（D-② 紧凑） */
+  font-weight: 700;             /* 宋体 700 而非 900 */
+  color: var(--ink);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+.data-orbit .data-static b .unit,
+.data-orbit .data-core b .unit {
+  font-size: 0.66em;
+  margin-left: 2px;
+  color: var(--ink-soft);
+  font-weight: 400;             /* 单位用宋体 400，与数字 700 形成次级节奏 */
+  font-family: "Noto Serif SC", "LXGW WenKai", serif;
+}
+.data-orbit .data-core b {
+  font-size: 1.85rem;           /* ↓ from 2rem（毛笔已去，宋体小一点更协调）*/
+  color: var(--cinnabar);
+  letter-spacing: 0.04em;
+}
+.data-orbit .data-static span,
+.data-orbit .data-core span {
+  display: block;
+  margin-top: 2px;              /* D-② 紧凑 ↓ from 4px */
+  font-size: 0.88rem;           /* ↑ from 0.82rem */
+  color: var(--ink-soft);
+  letter-spacing: 0.08em;       /* ↓ from 0.14em，更紧凑 */
+  line-height: 1.2;
+  font-family: "Noto Serif SC", "LXGW WenKai", "FZ清刻本悦宋", "Source Han Serif SC", "STZhongsong", "STSong", SimSun, serif;
+}
+.data-orbit .data-core span { font-size: 0.9rem; letter-spacing: 0.16em; }
+
+/* ===== 内部装饰 D-① ===== */
+/* .data-core 顶部 mini .eyebrow 卷首题（无 SVG 噪点，简版）*/
+.data-orbit .data-core::before {
+  content: attr(data-eyebrow);
+  font-family: "LXGW WenKai", "Noto Serif SC", serif;
+  font-size: 0.62rem;
+  color: var(--cinnabar);
+  letter-spacing: 0.32em;
+  font-weight: 700;
+  margin-bottom: 4px;
+  opacity: 0.85;
+}
+/* .data-core 数字下方古金细线（仿 .num-mark 批注）*/
+.data-orbit .data-core::after {
+  content: "";
+  display: block;
+  width: 36px;
+  height: 1px;
+  margin: 6px auto 4px;
+  background: linear-gradient(90deg, transparent, var(--gold) 50%, transparent);
+}
+/* .data-static 数字上方 4×4 朱砂方块 */
+.data-orbit .data-static::before {
+  content: "";
+  display: block;
+  width: 4px;
+  height: 4px;
+  margin: 0 auto 4px;
+  background: var(--cinnabar);
+  opacity: 0.75;
+}
+
+/* ===== v4：4 角非红边小圆沿大圆内壁缓慢环绕运动（文字始终朝上）=====
+   双层嵌套：outer .data-static-pos 沿圆周 R(θ)·T(0,-r)
+             inner .data-static-content 反向 R(-θ) 抵消 → 文字朝上
+   动画：单一 keyframe data-orbit-pos，N 个小圆用 --i + --n 错开起始
+============================================================= */
+.data-orbit-track {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;  /* 在 core (z:2) 之下 */
+}
+.data-orbit .data-static-pos {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 102px;
+  height: 102px;
+  margin: -51px 0 0 -51px;
+  animation: data-orbit-pos var(--orbit-dur, 80s) linear infinite;
+  animation-delay: calc(var(--i, 0) * (var(--orbit-dur, 80s) / var(--n, 4)) * -1);
+  z-index: 1;
+}
+.data-orbit .data-static-content {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px dashed rgba(26, 20, 16, 0.34);
+  background: rgba(244, 236, 216, 0.5);
+  text-align: center;
+  padding: 2px;
+  animation: data-counter-spin var(--orbit-dur, 80s) linear infinite;
+  animation-delay: calc(var(--i, 0) * (var(--orbit-dur, 80s) / var(--n, 4)) * -1);
+  transform-origin: 50% 50%;
+}
+.data-orbit .data-static-content::before {
+  content: "";
+  display: block;
+  width: 4px;
+  height: 4px;
+  margin: 0 auto 4px;
+  background: var(--cinnabar);
+  opacity: 0.75;
+}
+.data-orbit .data-static-content b,
+.data-orbit .data-static-content span {
+  display: block;
+  font-family: "Noto Serif SC", "LXGW WenKai", "FZ清刻本悦宋", "Source Han Serif SC", "STZhongsong", "STSong", SimSun, serif;
+}
+.data-orbit .data-static-content b {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+.data-orbit .data-static-content b .unit {
+  font-size: 0.66em;
+  margin-left: 2px;
+  color: var(--ink-soft);
+  font-weight: 400;
+}
+.data-orbit .data-static-content span {
+  margin-top: 2px;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+}
+@keyframes data-orbit-pos {
+  from { transform: rotate(0deg) translateY(calc(-1 * var(--orbit-radius, 150px))); }
+  to   { transform: rotate(360deg) translateY(calc(-1 * var(--orbit-radius, 150px))); }
+}
+@keyframes data-counter-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
+@media (max-width: 520px) {
+  .data-orbit { width: 340px; height: 340px; }
+  .data-orbit .data-static { width: 76px; height: 76px; }
+  .data-orbit .data-core   { width: 100px; height: 100px; }
+  .data-orbit .data-static b { font-size: 1.15rem; }
+  .data-orbit .data-core b   { font-size: 1.45rem; }
+  .data-orbit .data-static span,
+  .data-orbit .data-core span { font-size: 0.72rem; }
+  .data-orbit .data-core span { font-size: 0.74rem; }
+  .data-orbit .data-static[style*="--x:22%"] { --x: 24%; }
+  .data-orbit .data-static[style*="--x:78%"] { --x: 76%; }
+  .data-orbit .data-static[style*="--x:24%"] { --x: 26%; }
+  /* 移动端 mini .eyebrow 字号缩小 */
+  .data-orbit .data-core::before { font-size: 0.54rem; letter-spacing: 0.28em; }
+  .data-orbit .data-core::after { width: 28px; margin: 4px auto 2px; }
+  .data-orbit .data-static::before { margin: 0 auto 2px; }
 }
