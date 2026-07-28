@@ -1,19 +1,19 @@
 :root {
-  --paper: #f4ecd8;
-  --paper-rice: #faf2dd;
-  --paper-deep: #e8dfc5;
-  --paper-tag: #ebe1c5;
-  --ink: #1a1410;
-  --ink-soft: #5a504a;
-  --line: #15120f;
-  --bronze: #5a7256;
-  --bronze-deep: #3d4f3e;
-  --cinnabar: #a83228;
-  --gold: #b8893a;
-  --shadow-soft: 0 1px 0 rgba(26, 20, 16, 0.05), 0 18px 36px -16px rgba(26, 20, 16, 0.08);
+  --paper: #E8F1F8;
+  --paper-rice: #F4F8FB;
+  --paper-deep: #D5E2EE;
+  --paper-tag: #E0EAF2;
+  --ink: #2E5A8A;
+  --ink-soft: #5A7DA3;
+  --line: #1F4060;
+  --bronze: #7BA0C2;
+  --bronze-deep: #3E6B95;
+  --cinnabar: #2E5A8A;
+  --gold: #5B8FBF;
+  --shadow-soft: 0 1px 0 rgba(46, 90, 138, 0.05), 0 18px 36px -16px rgba(46, 90, 138, 0.08);
   --shadow: var(--shadow-soft);
   --radius: 2px;
-  --max: 880px;
+  --max: 1200px;
 }
 
 * {
@@ -29,7 +29,7 @@ body {
   margin: 0;
   color: var(--ink);
   background-color: var(--paper);
-  background-image: url("../assets/images/paper-texture.jpg");
+  background-image: url("../assets/images/paper-texture-blue.jpg");
   background-repeat: repeat;
   background-size: 1200px 1200px;
   background-attachment: fixed;
@@ -1349,12 +1349,12 @@ strong[data-count].counting {
 
 /* ===== 模块 1：水墨晕染开屏（载入动画） ===== */
 :root {
-  --paper-aged: #ede2c4;
-  --paper-vellum: #e0d3a8;
-  --ink-deep: #0a0805;
-  --ink-shadow: rgba(10, 8, 5, 0.12);
-  --seal-red: #a83228;
-  --gold-thread: #a17a30;
+  --paper-aged: #E0EAF2;
+  --paper-vellum: #C5D9E8;
+  --ink-deep: #1F4060;
+  --ink-shadow: rgba(46, 90, 138, 0.12);
+  --seal-red: #2E5A8A;
+  --gold-thread: #5B8FBF;
 }
 
 .ink-loader {
@@ -1386,7 +1386,7 @@ body:not(.is-loading) .ink-loader {
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(circle at 25% 30%, rgba(10, 8, 5, 0.04) 0%, transparent 30%),
+    radial-gradient(circle at 25% 30%, rgba(46, 90, 138, 0.04) 0%, transparent 30%),
     radial-gradient(circle at 75% 70%, rgba(168, 50, 40, 0.03) 0%, transparent 30%);
   pointer-events: none;
 }
@@ -1406,10 +1406,10 @@ body:not(.is-loading) .ink-loader {
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    rgba(10, 8, 5, 0.95) 0%,
-    rgba(10, 8, 5, 0.6) 35%,
-    rgba(10, 8, 5, 0.2) 65%,
-    rgba(10, 8, 5, 0) 100%
+    rgba(46, 90, 138, 0.95) 0%,
+    rgba(46, 90, 138, 0.6) 35%,
+    rgba(46, 90, 138, 0.2) 65%,
+    rgba(46, 90, 138, 0) 100%
   );
   filter: blur(40px);
   opacity: 0;
@@ -1431,7 +1431,7 @@ body:not(.is-loading) .ink-loader {
   text-shadow:
     0 0 60px rgba(245, 239, 225, 1),
     0 4px 0 rgba(245, 239, 225, 0.9),
-    0 8px 24px rgba(10, 8, 5, 0.4);
+    0 8px 24px rgba(46, 90, 138, 0.4);
   opacity: 0;
   transform: scale(0.7);
   z-index: 2;
@@ -1521,7 +1521,7 @@ body:not(.is-loading) .ink-loader {
   height: 18px;
   margin: -9px 0 0 -9px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(10, 8, 5, 0.7), rgba(10, 8, 5, 0));
+  background: radial-gradient(circle, rgba(46, 90, 138, 0.7), rgba(46, 90, 138, 0));
   filter: blur(2px);
   animation: orbitPulse 3s ease-in-out infinite;
 }
@@ -1635,7 +1635,7 @@ body:not(.is-loading) .ink-loader {
 .ink-progress-bar {
   width: 220px;
   height: 2px;
-  background: rgba(10, 8, 5, 0.12);
+  background: rgba(46, 90, 138, 0.12);
   overflow: hidden;
   position: relative;
   opacity: 0;
