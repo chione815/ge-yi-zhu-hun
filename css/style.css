@@ -365,9 +365,9 @@ textarea {
 
 .home-grid {
   display: grid;
-  grid-template-columns: 0.92fr 1.35fr 0.92fr;
-  gap: 28px;
-  margin-top: 30px;
+  grid-template-columns: 1fr;
+  gap: 22px;
+  margin-top: 18px;
 }
 
 .sketch-card,
@@ -443,6 +443,9 @@ textarea {
 .advisor-card p {
   margin: 0;
   color: var(--ink-soft);
+  line-height: 1.85;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .data-prose {
